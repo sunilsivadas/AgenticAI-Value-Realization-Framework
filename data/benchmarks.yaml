@@ -1,0 +1,133 @@
+# Benchmark and metric data cited in the Realized Value article series.
+# Format: name, value, date, source, notes
+
+metrics:
+
+  - name: GDPval capability ceiling
+    factor: capability
+    value: "47.6% wins-or-ties vs. expert humans"
+    date: "2025-09"
+    model: "Claude Opus 4.1"
+    source: "Anthropic / GDPval methodology"
+    source_url: "https://anthropic.com"
+    notes: "Top models reached ~83% by mid-2026"
+
+  - name: GDPval top-model ceiling
+    factor: capability
+    value: "~83% wins-or-ties vs. expert humans"
+    date: "2026-06"
+    model: "Top frontier models"
+    source: "Anthropic / GDPval methodology"
+    source_url: "https://anthropic.com"
+    notes: "Theoretical speed-up of ~100x"
+
+  - name: METR productivity gain (HITL)
+    factor: capability
+    value: "1.4x-2x change in value of work"
+    date: "2025"
+    source: "METR Survey"
+    source_url: "https://metr.org"
+    notes: "Median gain with human-in-the-loop; reveals gap between theoretical and realized value"
+
+  - name: Remote Labor Index autonomous completion
+    factor: reliability
+    value: "2.5% of tasks at acceptable quality"
+    date: "2025"
+    source: "METR Remote Labor Index"
+    source_url: "https://metr.org/blog/2025-03-19-measuring-ai-ability-to-complete-long-tasks/"
+    notes: "Best agents; most range 0.8%-2.5%"
+
+  - name: Task horizon at 50% reliability
+    factor: reliability
+    value: "~14.5 hours"
+    date: "2025"
+    source: "METR"
+    source_url: "https://metr.org"
+    notes: "Maximum economically viable task length at 50% success rate"
+
+  - name: Task horizon at 80% reliability
+    factor: reliability
+    value: "~1 hour"
+    date: "2025"
+    source: "METR"
+    source_url: "https://metr.org"
+    notes: "Drops sharply with higher reliability bar -- key insight for production planning"
+
+  - name: Agent Arena control reversion rate
+    factor: controllability
+    value: "2.3x more control-backs than handovers"
+    date: "2025-2026"
+    source: "Agent Arena session observations"
+    source_url: "https://agentarena.ai"
+    notes: "Real-world sessions; users pull control back more often than they extend it"
+
+  - name: Gartner agentic AI project cancellation forecast
+    factor: all
+    value: ">40% of agentic AI projects canceled by end of 2027"
+    date: "2025"
+    source: "Gartner"
+    source_url: "https://gartner.com"
+    notes: "Cited reason: cost and complexity; confirms binding constraint pattern in the framework"
+
+
+benchmarks:
+
+  - name: SWE-bench Verified
+    factor: capability
+    url: "https://www.swebench.com/"
+    type: coding
+    description: "Software engineering tasks from real GitHub issues, human-verified subset"
+    metrics:
+      - name: Pass@1
+        unit: "%"
+        higher_is_better: true
+
+  - name: METR Task Standard
+    factor: capability
+    url: "https://github.com/METR/task-standard"
+    type: autonomy
+    description: "Standardized real-world tasks for measuring autonomous completion"
+    metrics:
+      - name: Autonomous completion rate
+        unit: "%"
+        higher_is_better: true
+
+  - name: AgentBench
+    factor: capability
+    url: "https://github.com/THUDM/AgentBench"
+    type: multi-environment
+    description: "Multi-environment benchmark across OS, database, web, and code"
+    metrics:
+      - name: Overall score
+        unit: composite
+        higher_is_better: true
+
+  - name: OSWorld
+    factor: capability
+    url: "https://github.com/xlang-ai/OSWorld"
+    type: computer-use
+    description: "Desktop GUI agent benchmark on real computer tasks"
+    metrics:
+      - name: Task success rate
+        unit: "%"
+        higher_is_better: true
+
+  - name: tau-bench
+    factor: capability
+    url: "https://github.com/sierra-research/tau-bench"
+    type: tool-use
+    description: "Tool-use agent benchmark in real-world customer service scenarios"
+    metrics:
+      - name: Pass rate
+        unit: "%"
+        higher_is_better: true
+
+  - name: LMSYS Chatbot Arena
+    factor: capability
+    url: "https://lmarena.ai"
+    type: human-preference
+    description: "Human preference Elo ratings across chat and instruction-following"
+    metrics:
+      - name: Elo rating
+        unit: elo
+        higher_is_better: true
