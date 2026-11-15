@@ -4,7 +4,7 @@ Newest first.
 
 ## 15 Nov 2026
 
-Full realignment with the article series as published on 15 November 2026 (introduction v16, Part 1 v27, Part 2 v16, Part 3 v7, Part 4 v5, Part 5 v4, Part 6 v7). The previous version dated from 6 June 2026, when only the introduction was out.
+Full realignment with the article series as published on 15 November 2026 (introduction v17, Part 1 v27, Part 2 v16, Part 3 v7, Part 4 v5, Part 5 v4, Part 6 v8). The previous version dated from 6 June 2026, when only the introduction was out.
 
 **Series table.** All seven articles are now listed as published, with their current titles. Part 6, From framework to ROI, is added.
 
@@ -31,6 +31,8 @@ Full realignment with the article series as published on 15 November 2026 (intro
 **Data file rebuilt.** `data/benchmarks.yaml` now holds the series metadata, the units, the key figures with dates and evidence labels, the worked-case inputs and results, and the benchmarks and tools the series cites.
 
 **Contributing guide updated.** New rules for figures, links and style.
+
+**Version numbers.** The introduction (v17) and Part 6 (v8) were republished later the same day with a link to this repository and no other change. The versions above and in `data/benchmarks.yaml` reflect that.
 
 ## 6 Jun 2026
 

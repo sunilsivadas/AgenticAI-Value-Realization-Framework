@@ -21,13 +21,13 @@ series:
   aligned_on: "2026-11-15"
   formula: "realized value = capability x cost x reliability x safety x controllability"
   articles:
-    - {part: 0, title: "Realized Value: A Framework for Evaluating Agentic AI in the Enterprise", url: "https://sunilsivadas.github.io/realized-value.html", version: "v16"}
+    - {part: 0, title: "Realized Value: A Framework for Evaluating Agentic AI in the Enterprise", url: "https://sunilsivadas.github.io/realized-value.html", version: "v17"}
     - {part: 1, title: "Capability is a system property", url: "https://sunilsivadas.github.io/capability.html", version: "v27"}
     - {part: 2, title: "Cost engineering for agentic AI", url: "https://sunilsivadas.github.io/cost.html", version: "v16"}
     - {part: 3, title: "Reliability is getting it right every time", url: "https://sunilsivadas.github.io/reliability.html", version: "v7"}
     - {part: 4, title: "Safety is how an agent behaves when it is unsure", url: "https://sunilsivadas.github.io/safety.html", version: "v5"}
     - {part: 5, title: "Controllability is what you can do when the agent is wrong", url: "https://sunilsivadas.github.io/controllability.html", version: "v4"}
-    - {part: 6, title: "From framework to ROI", url: "https://sunilsivadas.github.io/roi.html", version: "v7"}
+    - {part: 6, title: "From framework to ROI", url: "https://sunilsivadas.github.io/roi.html", version: "v8"}
 
 units:
   capability: "Score on a relevant, unsaturated benchmark or internal eval, under generous conditions, with no reliability threshold"
