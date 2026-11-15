@@ -1,175 +1,179 @@
-# Evaluation Worksheet
+# Evaluation worksheet
 
-Complete this worksheet before making a deployment decision. It operationalizes the Realized Value scorecard into concrete evidence-gathering tasks.
+Fill this in for one deployment. It follows the first four steps of the [build sequence](deployment-checklist.md), which decide whether to build at all, and then sets the thresholds for the [scorecard](../framework/scorecard.md).
 
----
+Deployment: ______________________  Date: ______________  Completed by: ______________________
 
-## Deployment Context
-
-**Agent / System Name:**
-**Use Case:**
-**Target Task Class:**
-**Evaluator:**
-**Date:**
+Model, harness and tool versions: ______________________
 
 ---
 
-## Step 1: Define Success
+## 1. Frame the use case
 
-Before scoring, define what success means for this deployment. Ambiguity here invalidates every score that follows.
+One sentence on what the agent does, for whom:
 
-**Task success definition** (what does a completed task look like?):
-> _________________________________________
+______________________________________________________________
 
-**Acceptable failure rate** (what % of tasks can fail before the deployment is unviable?):
-> ___% failure rate acceptable
+Rate the five attributes ([guide](../framework/use-case-weights.md)):
 
-**Evaluation horizon** (are you evaluating for a pilot, 6-month production, or multi-year?):
-> _________________________________________
+| Attribute | Rating (Low / Medium / High) | Why |
+|-----------|------------------------------|-----|
+| Stakes: what does a wrong output cost? | | |
+| Autonomy: how long without a human checkpoint? | | |
+| Reversibility: can a wrong output be undone? | | |
+| Integration complexity: how many systems? | | |
+| Verifiability: can you tell if the output is right? | | |
 
----
-
-## Step 2: Gather Evidence Per Factor
-
-### Capability
-
-- [ ] Run the agent against a benchmark relevant to the target task class. Record pass rate.
-  - Benchmark used: _________________________
-  - Pass rate: ____%
-  - Conditions: _________________________
-
-- [ ] Measure task completion on 20+ representative real tasks (not benchmark tasks).
-  - Completion rate: ____%
-  - Common failure patterns: _________________________
-
-- [ ] Assess domain knowledge adequacy with subject matter experts.
-  - Expert assessment: Pass / Fail / Conditional
-
-**Evidence summary:**
-> _________________________________________
+Expected binding constraint, from the ratings: ______________________
 
 ---
 
-### Cost
+## 2. List and tier the actions
 
-- [ ] Measure median cost per **successful** task (include retries and failures).
-  - Cost per task (with failures): $___
-  - Cost per task (benchmark only): $___
-  - Ratio (production / benchmark): ___x
+Every tool the agent can call. Severity sets the floor. Detectability can lower a tier only when a code or state check catches the failure before it reaches anyone.
 
-- [ ] Calculate fully-loaded cost of equivalent human effort.
-  - Human cost per task: $___
-  - Agent cost / Human cost: ___x
+| Action | What it touches | Reversible? | Who bears a failure | Tier (Low / Medium / High / Critical) | Reliability bar (k, and maximum silent-failure rate) |
+|--------|-----------------|-------------|---------------------|----------------------------------------|------------------------------------------------------|
+| | | | | | |
+| | | | | | |
+| | | | | | |
+| | | | | | |
 
-- [ ] Estimate integration fixed costs and amortize.
-  - Integration cost: $___
-  - Amortized per task at expected volume: $___
+Scope and authority, in one paragraph the agent will be given (lever S1):
 
-**Is agent cost < human cost?** Yes / No / Marginal
+______________________________________________________________
 
----
+What counts as high-stakes for this deployment (lever S3):
 
-### Reliability
-
-- [ ] Run the agent in a realistic staging environment (not benchmark conditions) over >=50 tasks.
-  - Production pass rate: ____%
-  - Benchmark pass rate: ____%
-  - Production / Benchmark ratio: ___x
-
-- [ ] Document all unique failure modes observed.
-  1. _________________________
-  2. _________________________
-  3. _________________________
-
-- [ ] Test integration failure injection: rate limiting, expired tokens, schema drift.
-  - Rate limit handling: Pass / Fail
-  - Token expiry handling: Pass / Fail
-  - Schema drift handling: Pass / Fail
-
-- [ ] Verify error surfacing: does the agent surface failures visibly rather than silently completing incorrectly?
-  - Error visibility: Pass / Fail
+______________________________________________________________
 
 ---
 
-### Safety
+## 3. Measure the human baseline
 
-- [ ] Test conservative behavior under ambiguous instructions (give 10+ ambiguous inputs).
-  - Asks for clarification: ___/10
-  - Proceeds with assumption: ___/10
-  - Takes unauthorized action: ___/10
+Without a baseline there is no return to report.
 
-- [ ] Verify the agent does not invent actions outside its defined scope.
-  - Out-of-scope actions observed: Yes / No
-  - Examples if yes: _________________________
-
-- [ ] Test behavior on high-stakes step confirmation.
-  - Prompts for confirmation before irreversible actions: Yes / No / Sometimes
-
-- [ ] Test safe failure mode: when the agent is uncertain, does it do nothing rather than the wrong thing?
-  - Safe failure observed: Yes / No / Inconsistent
+| Measure | Value | How it was measured | Date |
+|---------|-------|---------------------|------|
+| Cost per case | | | |
+| Time per case | | | |
+| Error rate per case | | | |
+| Volume per month | | | |
 
 ---
 
-### Controllability
+## 4. Build the golden set
 
-- [ ] Audit permission scope: what can the agent access?
-  - Permissions list: _________________________
-  - Are all permissions necessary? Yes / No
-  - Least-privilege review complete? Yes / No
-
-- [ ] Define and document blast radius.
-  - Maximum damage from one agent run: _________________________
-  - Is blast radius bounded and documented? Yes / No
-
-- [ ] Verify audit trail completeness.
-  - Is every action logged? Yes / No
-  - Is the log tamper-evident? Yes / No
-  - Retention period: _________________________
-
-- [ ] Test kill switch.
-  - Can the agent be stopped mid-task? Yes / No
-  - Does stopping cause unrecoverable side effects? Yes / No
-
-- [ ] Verify human override path.
-  - Is there a clear escalation mechanism? Yes / No
-  - Is it tested? Yes / No
+| Item | Value |
+|------|-------|
+| Number of tasks | |
+| Where the tasks came from (real cases, confirmed failures) | |
+| Grader for each check (code, state check, LLM judge, person) | |
+| If an LLM judge: true positive and true negative rates against an expert's labels | |
+| Paraphrases, injected faults and long sessions included? | |
 
 ---
 
-## Step 3: Score and Identify Binding Constraint
+## 5. Measure the ceiling
 
-Transfer scores from the [scorecard](../framework/scorecard.md):
+Under generous conditions: best effort, ideal harness, no time pressure, no reliability threshold.
 
-| Factor | Score | Binding? |
-|--------|-------|----------|
-| Capability | | |
-| Cost | | |
-| Reliability | | |
-| Safety | | |
-| Controllability | | |
-| **Composite** | | |
+| Measure | Value |
+|---------|-------|
+| Benchmark or internal eval used | |
+| Score | |
+| Score the task needs | |
 
-**Binding constraint (lowest score):** _____________________
+If the ceiling sits below what the task needs, stop here. No later step recovers it.
+
+Decision: ☐ Proceed  ☐ Stop  ☐ Narrow the scope and re-measure
 
 ---
 
-## Step 4: Decision
+## 6. Run the golden set k times
 
-Based on evidence and composite score, recommend one of:
+| Result | Value |
+|--------|-------|
+| k | |
+| pass^k, with confidence interval | |
+| Items that always pass | |
+| Items that sometimes pass (reliability work) | |
+| Items that never pass (capability gap: back to step 5) | |
+| Hand-back rate, per run | |
+| Silent-failure rate, per run, from an audited sample of ___ | |
+| Worst run | |
 
-- [ ] **Deploy** — all factors above threshold, no binding constraints
-- [ ] **Deploy with conditions** — specify conditions: _________________________
-- [ ] **Delay** — remediate binding constraint first: _________________________
-- [ ] **Reject** — factor(s) are near-zero and not remediable in scope
+---
 
-**Recommendation:**
-> _________________________________________
+## 7. Price one case
 
-**Sign-off:**
+The [cost model](../framework/cost-model.md), with your own numbers.
 
-| Role | Name | Date |
-|------|------|------|
-| Finance | | |
-| CISO | | |
-| Governance/Risk | | |
-| Product/Engineering | | |
+| Input | Value | Source |
+|-------|-------|--------|
+| Human cost per case (from section 3) | | |
+| Run cost per case | | |
+| Hand-back rate | | |
+| Silent-failure rate | | |
+| Cost of an error | | |
+| Unsafe-action rate | | |
+| Loss per unsafe action (who judged it, on what evidence) | | |
+| Gate rate | | |
+| Approver cost per approval | | |
+
+```
+agent cost per case = run cost
+                    + hand-back rate      × human cost per case
+                    + silent-failure rate × cost of an error
+                    + unsafe-action rate  × loss per unsafe action
+                    + gate rate           × approver cost
+```
+
+| Result | Value |
+|--------|-------|
+| Agent cost per case | |
+| Realized value per case (human cost − agent cost) | |
+| Fixed monthly cost (evaluation, monitoring, ownership) | |
+| Break-even volume (fixed monthly cost ÷ saving per case) | |
+| Largest loss a single case can cause, without the bounds | |
+| Largest loss a single case can cause, with the bounds | |
+| Silent-failure rate at which the saving is gone | |
+
+---
+
+## 8. Write the kill criteria
+
+Before the pilot. Beside each threshold, write what happens if it is missed: fix it, narrow the scope, or stop.
+
+| Criterion | Threshold | Action if missed | Owner |
+|-----------|-----------|------------------|-------|
+| pass^k at the tier's k | | | |
+| Maximum silent-failure rate, from audited samples | | | |
+| Maximum cost per successful task | | | |
+| Maximum severity-weighted unsafe-action rate | | | |
+| Minimum bounded share | | | |
+| Maximum time-to-halt in a drill | | | |
+| Break-even volume, reached by (date) | | | |
+
+---
+
+## 9. Check the organisation
+
+| Question | Answer |
+|----------|--------|
+| Which work is routed to the agent, and how much of it? | |
+| What changes in the work so the gates open wider? | |
+| What do people do with the time freed? How is its value counted? | |
+| Who owns each factor? | |
+| Who is accountable when the agent is wrong? | |
+| When is the next re-run (model, harness or tool change)? | |
+
+---
+
+## Outcome
+
+Binding constraint, as measured: ______________________
+
+Decision: ☐ Build  ☐ Narrow the scope  ☐ Stop
+
+Signed off by: ______________________  Date: ______________

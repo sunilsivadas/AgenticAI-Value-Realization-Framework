@@ -1,158 +1,104 @@
-# Realized Value Scorecard
+# The scorecard: twelve numbers
 
-Use this scorecard to score an agentic AI deployment across all five factors. Because the formula is multiplicative, a score near zero on any single factor is disqualifying regardless of performance elsewhere.
+From [Part 6, From framework to ROI](https://sunilsivadas.github.io/roi.html#one-scorecard).
 
-```
-Realized Value = Capability x Cost x Reliability x Safety x Controllability
-```
+Twelve numbers carry the whole case: ten for the agent and two for the organisation. Engineering, finance and risk can read the same sheet, because each number feeds a line of the business case.
 
----
-
-## Scoring Guide
-
-Each factor is scored **0.0-1.0**. The composite score is the product of all five.
-
-| Score | Interpretation |
-|-------|---------------|
-| 0.9-1.0 | Exceeds requirements; not a constraint |
-| 0.7-0.89 | Acceptable; minor gaps to address |
-| 0.5-0.69 | Material risk; requires a remediation plan |
-| 0.2-0.49 | Binding constraint; blocks deployment |
-| 0.0-0.19 | Near-zero; zeros the product |
-
-**Composite score interpretation:**
-
-| Composite | Interpretation |
-|-----------|---------------|
-| > 0.5 | Strong deployment candidate |
-| 0.2-0.5 | Conditional; address binding constraints first |
-| < 0.2 | Not ready; identify the near-zero factor |
+An earlier version of this file asked for a score from 0 to 1 on each factor and multiplied the five. The series does not support that. Only cost has a clean unit, and a composite score hides the factor that binds. Report the twelve numbers below, each with its own threshold.
 
 ---
 
-## Factor 1: Capability
+## The twelve
 
-*Can the agent actually complete the target task class?*
+| # | Number | Factor | Business-case line it feeds | Defined in |
+|---|--------|--------|-----------------------------|------------|
+| 1 | Cost per successful task | Cost | Run cost | [Part 2](https://sunilsivadas.github.io/cost.html) |
+| 2 | pass^k, with its confidence interval | Reliability | How far the reliability lines can be trusted | [Part 3](https://sunilsivadas.github.io/reliability.html) |
+| 3 | Hand-back rate | Reliability | People's time | Part 3 |
+| 4 | Silent-failure rate | Reliability | Rework, refunds, complaints | Part 3 |
+| 5 | Severity-weighted unsafe-action rate, at its intervention rate | Safety | Expected loss | [Part 4](https://sunilsivadas.github.io/safety.html) |
+| 6 | Bounded share | Controllability | Share of the risk with a cap | [Part 5](https://sunilsivadas.github.io/controllability.html) |
+| 7 | Bound-leak rate | Controllability | Whether the cap holds | Part 5 |
+| 8 | Time-to-halt | Controllability | Size of the worst day | Part 5 |
+| 9 | Gate load | Controllability | Approver time, and whether the gates still work | Part 5 |
+| 10 | Realized value per case | All five | Saving per case | [Part 6](https://sunilsivadas.github.io/roi.html) |
+| 11 | Volume routed to the agent | Organisation | Scale of the saving, and the break-even point | Part 6 |
+| 12 | Return per month | Organisation | Volume × saving + redeployed value − fixed costs | Part 6 |
 
-| Dimension | Evidence Required | Score (0-1) |
-|-----------|------------------|-------------|
-| Task completion rate on benchmark | Pass rate on relevant eval (e.g., SWE-bench, tau-bench, domain-specific) | |
-| Autonomy horizon match | Agent's reliable task horizon (hrs) >= target task length | |
-| Tool use fidelity | Correct tool selection and parameter handling rate | |
-| Domain knowledge adequacy | Qualitative or eval-based assessment of domain coverage | |
-
-**Factor 1 Score:** _____ / 1.0
-
-Notes:
-_____________________________________________
-
----
-
-## Factor 2: Cost
-
-*Is the cost per successful task below the value it delivers?*
-
-| Dimension | Evidence Required | Score (0-1) |
-|-----------|------------------|-------------|
-| Cost per successful task | Measured with retries and failure overhead included | |
-| Cost vs. labor displaced | Cost < fully-loaded cost of equivalent human effort | |
-| Integration overhead | Fixed integration costs amortized across expected volume | |
-| Token efficiency | Context size and call count are optimized, not bloated | |
-
-**Factor 2 Score:** _____ / 1.0
-
-Notes:
-_____________________________________________
+Capability has no row of its own. It decides which cases the agent can attempt at all, and it is measured before the scorecard starts (step 4 of the [build sequence](../templates/deployment-checklist.md)). Cases beyond the ceiling stay with people.
 
 ---
 
-## Factor 3: Reliability
+## Definitions
 
-*Does the agent perform consistently in production, not just under benchmark conditions?*
+**1. Cost per successful task.** Cost per run divided by success rate. Failed runs are paid for and deliver nothing, so they raise this number directly.
 
-| Dimension | Evidence Required | Score (0-1) |
-|-----------|------------------|-------------|
-| Production pass rate | Measured in real or realistic staging environment | |
-| Failure mode analysis | Known failure modes are documented and bounded | |
-| Integration failure surface | Rate-limiting, token expiry, schema drift are handled | |
-| Recovery behavior | Agent fails gracefully; errors are surfaced, not silently swallowed | |
+**2. pass^k.** The share of tasks solved on all k tries. State k, the task set and the grader. Report the confidence interval.
 
-**Factor 3 Score:** _____ / 1.0
+**3. Hand-back rate.** Share of runs where the agent stopped and said so: it abstained, asked, or escalated to a person. The failure is visible.
 
-Notes:
-_____________________________________________
+**4. Silent-failure rate.** Share of runs where the agent finished, reported success, and the result was wrong. Measure it by sampling "successful" runs and checking them against the record. It is the input that moves the business case most, and the public record leaves it out.
 
----
+**5. Severity-weighted unsafe-action rate.** How often the agent acts outside its authority, weighted by how bad each action is. Report it with the intervention rate: asks, abstentions and escalations per task. Drive the first down without watching the second and you build an agent that asks about everything.
 
-## Factor 4: Safety
+**6. Bounded share.** Share of High and Critical actions behind a hard limit or a gate.
 
-*Does the agent behave conservatively under ambiguity and avoid unauthorized actions?*
+**7. Bound-leak rate.** Share of red-team attempts that get past a stated bound.
 
-| Dimension | Evidence Required | Score (0-1) |
-|-----------|------------------|-------------|
-| Conservative under ambiguity | Agent asks before acting on ambiguous instructions | |
-| No invented actions | Agent does not take actions outside its defined scope | |
-| High-stakes step confirmation | Agent pauses before irreversible or high-blast-radius actions | |
-| Safe failure mode | When uncertain, agent fails safely (does nothing vs. wrong thing) | |
+**8. Time-to-halt.** From first bad action to stop, in drills and incidents. Also from action to block, for each guardrail.
 
-**Factor 4 Score:** _____ / 1.0
+**9. Gate load.** Approvals per person per hour, and the approval rate. A rising approval rate is the sign that people have stopped reading the prompts.
 
-Notes:
-_____________________________________________
+**10. Realized value per case.** Human cost per case minus agent cost per case. See [`cost-model.md`](cost-model.md).
+
+**11. Volume routed to the agent.** Cases per month. It sets the scale of the saving and the break-even point.
+
+**12. Return per month.** Volume × saving per case, plus the value of redeployed time, minus fixed costs.
 
 ---
 
-## Factor 5: Controllability
+## How to run it
 
-*Does the operator have sufficient leverage to constrain, monitor, and stop the agent?*
+The scorecard is the governance instrument.
 
-| Dimension | Evidence Required | Score (0-1) |
-|-----------|------------------|-------------|
-| Permission scope | Minimum necessary permissions granted; least-privilege enforced | |
-| Blast radius bounds | Maximum damage from a single agent run is bounded and documented | |
-| Audit trail | Complete, tamper-evident log of all agent actions exists | |
-| Kill switch | Agent can be stopped mid-task without cascading side effects | |
-| Human override path | Clear mechanism for human to intervene at any point | |
-
-**Factor 5 Score:** _____ / 1.0
-
-Notes:
-_____________________________________________
+1. **Before the first run**, governance sets a threshold beside each number, with the action if it is missed: fix it, narrow the scope, or stop. These are the kill criteria.
+2. **Name an owner** for each number.
+3. **After launch**, report the twelve together, every month.
+4. **Re-run** after every change of model, harness or tool.
 
 ---
 
-## Composite Score
+## The sheet
 
-| Factor | Weight* | Score | Weighted |
-|--------|---------|-------|----------|
-| Capability | 1.0 | | |
-| Cost | 1.0 | | |
-| Reliability | 1.0 | | |
-| Safety | 1.0 | | |
-| Controllability | 1.0 | | |
-| **Composite (product)** | | | |
+Deployment: ______________________  Period: ______________  Model and harness version: ______________
 
-\* Default weights are equal (1.0). Adjust per [`framework/use-case-weights.md`](use-case-weights.md) for your use case context.
+| # | Number | Threshold | Action if missed | Owner | This period | Last period |
+|---|--------|-----------|------------------|-------|-------------|-------------|
+| 1 | Cost per successful task | | | | | |
+| 2 | pass^k (k = ___), with interval | | | | | |
+| 3 | Hand-back rate | | | | | |
+| 4 | Silent-failure rate (audited sample of ___) | | | | | |
+| 5 | Severity-weighted unsafe-action rate | | | | | |
+| 5b | Intervention rate | | | | | |
+| 6 | Bounded share | | | | | |
+| 7 | Bound-leak rate (red-team protocol: ___) | | | | | |
+| 8 | Time-to-halt (last drill: ___) | | | | | |
+| 9 | Gate load, and approval rate | | | | | |
+| 10 | Realized value per case | | | | | |
+| 11 | Volume routed to the agent | | | | | |
+| 12 | Return per month | | | | | |
+
+Binding constraint this period: ______________________
+
+What changed since the last report (model, harness, tools, scope): ______________________
 
 ---
 
-## Binding Constraint
+## Where the arithmetic stops
 
-The factor nearest zero determines deployment readiness. Identify it explicitly:
+- **Cost and reliability** convert to money cleanly. Runs, hand-backs and rework can be counted.
+- **Safety** converts as expected loss, and the loss per unsafe action is a judgement call. Write down who made it, and on what evidence.
+- **Controllability** converts worst. Its main value is the cap on the worst day, and an average hides the worst day. Report the largest loss a single case can cause, with and without the bounds, beside the expected value.
+- **The ceiling moves.** A business case written against one model generation needs re-running on the next, and so does the scorecard.
 
-**Binding constraint factor:** _____________________
-
-**Remediation plan:**
-_____________________________________________
-_____________________________________________
-
----
-
-## Sign-off
-
-| Stakeholder | Role | Factor Owned | Approved |
-|-------------|------|--------------|----------|
-| | Finance | Cost | [ ] |
-| | CISO | Controllability | [ ] |
-| | Governance/Risk | Safety | [ ] |
-| | Product/Engineering | Capability, Reliability | [ ] |
+The public customer-service record covers three of the twelve: cost, the resolution rate behind the hand-back rate, and volume.

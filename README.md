@@ -1,313 +1,223 @@
-# Realized Value — Agentic AI Evaluation Framework
+# Realized Value: an evaluation framework for agentic AI
 
-> Companion repository to the **[Realized Value](https://sunilsivadas.github.io/realized-value.html)** article series: *A Framework for Evaluating Agentic AI in the Enterprise*.
+Companion repository to the **[Realized Value](https://sunilsivadas.github.io/realized-value.html)** article series by Sunil Sivadas: *A Framework for Evaluating Agentic AI in the Enterprise*.
 
-[![Entries](https://img.shields.io/badge/resources-120+-blue)](#catalog)
-[![Factors](https://img.shields.io/badge/factors-5-green)](#the-five-factors)
-[![Series](https://img.shields.io/badge/articles-6-orange)](#article-series)
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen)](CONTRIBUTING.md)
+The articles make the argument and carry the evidence. This repository holds the working parts: the scorecard, the cost model, the contract clauses, the build sequence, worksheets you can fill in, and the key figures as data.
+
+Aligned with the series as published on 15 November 2026. See [CHANGELOG.md](CHANGELOG.md).
 
 ---
 
-## The Framework
+## The framework
 
 ```
-Realized Value = Capability × Cost × Reliability × Safety × Controllability
+realized value = capability × cost × reliability × safety × controllability
 ```
 
-The factors **multiply**. One near-zero factor zeros the product.
+Capability is the only factor that creates value. The other four discount it. The factors multiply, so the one nearest zero sets the outcome. That factor is the binding constraint.
 
-| Factor | Role | Primary Veto Holder |
-|--------|------|---------------------|
-| **Capability** | Value creator — the only term that *adds* value; all others discount it | Product / Engineering |
-| **Cost** | First discount — cost per successful task, retries and failures counted in | Finance |
-| **Reliability** | Second discount — pass@always, not pass@1 | Product / Engineering |
-| **Safety** | Third discount — conservative behavior under ambiguity | Governance / Risk |
-| **Controllability** | Fourth discount — operator leverage, blast radius, kill switches | CISO |
+This is a mental model. Only cost has a clean unit, the dollar. The series gives each of the other factors a unit and a test, so a team can find its weakest factor and spend there.
 
-Enterprise product-market fit requires crossing **all five** thresholds simultaneously.
+| Factor | What it is | Unit | Usual gatekeeper |
+|--------|------------|------|------------------|
+| **Capability** | The ceiling: what the system can do under generous conditions | Score on a relevant, unsaturated benchmark or your own eval, with no reliability threshold | Product and engineering |
+| **Cost** | What each success costs | Cost per successful task | Finance |
+| **Reliability** | Getting it right every time | pass^k, with the hand-back and silent-failure rates | Product and engineering |
+| **Safety** | The agent's own behaviour when it is unsure | Severity-weighted unsafe-action rate, at its intervention rate | Risk and compliance |
+| **Controllability** | What the operator can do when the agent is wrong | Bounded share, bound-leak rate, time-to-halt, gate load | CISO |
 
----
-
-## Article Series
-
-| Part | Title | Status |
-|------|-------|--------|
-| [Part 0](https://sunilsivadas.github.io/realized-value.html) | Introduction: The Realized Value Framework | Published |
-| Part 1 | Capability: Realizing the Ceiling vs. Buying It | Forthcoming |
-| Part 2 | Cost: The Economics of the Successful Task | Forthcoming |
-| Part 3 | Reliability: pass@always | Forthcoming |
-| Part 4 | Safety: Agent Behavior Under Uncertainty | Forthcoming |
-| Part 5 | Controllability: Operator Leverage and Security Positioning | Forthcoming |
+The five factors price the agent per task. The organisation around the agent decides how much of that becomes a return: the volume routed to the agent, the work redesigned around it, and what people do with the time freed, after fixed costs. Governance sets the bar for each factor and checks the evidence.
 
 ---
 
-## How to Use This Repository
+## The article series
 
-- **Evaluating a deployment?** Start with [`templates/evaluation-worksheet.md`](templates/evaluation-worksheet.md) and the [`framework/scorecard.md`](framework/scorecard.md).
-- **Researching a specific factor?** Jump to its catalog section or the [`factors/`](factors/) deep-dive files.
-- **Tracking benchmark data?** See [`data/benchmarks.yaml`](data/benchmarks.yaml).
-- **Adding a resource?** Read [`CONTRIBUTING.md`](CONTRIBUTING.md).
+| Part | Title | What it gives you |
+|------|-------|-------------------|
+| [Introduction](https://sunilsivadas.github.io/realized-value.html) | Realized Value: A Framework for Evaluating Agentic AI in the Enterprise | The framework, and how the five factors multiply |
+| [Part 1](https://sunilsivadas.github.io/capability.html) | Capability is a system property | Seven layers where capability comes from, and five attributes that set the weights |
+| [Part 2](https://sunilsivadas.github.io/cost.html) | Cost engineering for agentic AI | Cost per successful task, and eighteen levers |
+| [Part 3](https://sunilsivadas.github.io/reliability.html) | Reliability is getting it right every time | pass^k, three outcomes per run, and twelve levers |
+| [Part 4](https://sunilsivadas.github.io/safety.html) | Safety is how an agent behaves when it is unsure | Five dimensions, risk tiers per action, and twelve levers |
+| [Part 5](https://sunilsivadas.github.io/controllability.html) | Controllability is what you can do when the agent is wrong | Six tests, four numbers, twelve levers, and the three-clause contract |
+| [Part 6](https://sunilsivadas.github.io/roi.html) | From framework to ROI | The cost model, a worked case, one build sequence and one scorecard |
 
----
-
-## Category Overview
-
-| Category | Resources |
-|----------|-----------|
-| [Capability: Benchmarks & Evals](#1-capability--benchmarks--evals) | 28 |
-| [Cost: Observability & Optimization](#2-cost--observability--optimization) | 18 |
-| [Reliability: Testing & Production Harnesses](#3-reliability--testing--production-harnesses) | 22 |
-| [Safety: Guardrails & Behavior](#4-safety--guardrails--behavior) | 20 |
-| [Controllability: Permissions, Sandboxing & Audit](#5-controllability--permissions-sandboxing--audit) | 20 |
-| [Framework Resources & Templates](#6-framework-resources--templates) | 12 |
+All seven are published. The series is a living document and is updated with each major model release. Each article carries its own change log.
 
 ---
 
-## Catalog
+## How to use this repository
 
-### 1. Capability — Benchmarks & Evals
+| If you want to | Start here |
+|----------------|------------|
+| Work out which factor binds for your use case | [`framework/use-case-weights.md`](framework/use-case-weights.md) |
+| Put a price on each factor | [`framework/cost-model.md`](framework/cost-model.md) |
+| Report one sheet to engineering, finance and risk | [`framework/scorecard.md`](framework/scorecard.md) |
+| Buy an agent, or write terms for one | [`framework/contract.md`](framework/contract.md) |
+| Evaluate a specific deployment | [`templates/evaluation-worksheet.md`](templates/evaluation-worksheet.md) |
+| Plan the build | [`templates/deployment-checklist.md`](templates/deployment-checklist.md) |
+| Go deeper on one factor | [`factors/`](factors/) |
+| Reuse the figures | [`data/benchmarks.yaml`](data/benchmarks.yaml) |
 
-Measures the ceiling: what agents can accomplish under ideal conditions.
+A short path for a first pass:
 
-#### Agent Task Benchmarks
-
-| Resource | Stars | Tags | Description |
-|----------|-------|------|-------------|
-| [SWE-bench](https://github.com/princeton-nlp/SWE-bench) | ![stars](https://img.shields.io/github/stars/princeton-nlp/SWE-bench?style=flat-square) | eval, coding, tasks | Industry-standard benchmark for resolving real GitHub issues |
-| [SWE-bench Verified](https://openai.com/index/introducing-swe-bench-verified/) | — | eval, coding, verified | Human-validated subset with higher-quality labels |
-| [METR Task Standard](https://github.com/METR/task-standard) | ![stars](https://img.shields.io/github/stars/METR/task-standard?style=flat-square) | eval, autonomy, tasks | Standard for defining and measuring autonomous task completion |
-| [AgentBench](https://github.com/THUDM/AgentBench) | ![stars](https://img.shields.io/github/stars/THUDM/AgentBench?style=flat-square) | eval, multi-env, benchmark | Multi-environment benchmark across OS, DB, web, and code tasks |
-| [OSWorld](https://github.com/xlang-ai/OSWorld) | ![stars](https://img.shields.io/github/stars/xlang-ai/OSWorld?style=flat-square) | eval, computer-use, desktop | Benchmark for desktop GUI agents on real computer tasks |
-| [WebArena](https://github.com/web-arena-x/webarena) | ![stars](https://img.shields.io/github/stars/web-arena-x/webarena?style=flat-square) | eval, web, browser | Realistic web environment benchmark for autonomous agents |
-| [WorkArena](https://github.com/ServiceNow/WorkArena) | ![stars](https://img.shields.io/github/stars/ServiceNow/WorkArena?style=flat-square) | eval, enterprise, workflow | ServiceNow-based enterprise task benchmark |
-| [tau-bench](https://github.com/sierra-research/tau-bench) | ![stars](https://img.shields.io/github/stars/sierra-research/tau-bench?style=flat-square) | eval, customer-service, tool-use | Benchmark for tool-use agents in real-world service tasks |
-| [AppWorld](https://github.com/stonybrooknlp/appworld) | ![stars](https://img.shields.io/github/stars/stonybrooknlp/appworld?style=flat-square) | eval, multi-app, tasks | Benchmark across realistic multi-app task environments |
-
-#### Capability Measurement Tools
-
-| Resource | Stars | Tags | Description |
-|----------|-------|------|-------------|
-| [LM-Eval Harness](https://github.com/EleutherAI/lm-evaluation-harness) | ![stars](https://img.shields.io/github/stars/EleutherAI/lm-evaluation-harness?style=flat-square) | eval, harness, llm | Unified framework for evaluating language models across tasks |
-| [Evals (OpenAI)](https://github.com/openai/evals) | ![stars](https://img.shields.io/github/stars/openai/evals?style=flat-square) | eval, framework, tasks | Framework for building and running model evaluations |
-| [HELMET](https://github.com/princeton-nlp/HELMET) | ![stars](https://img.shields.io/github/stars/princeton-nlp/HELMET?style=flat-square) | eval, long-context, rag | Holistic evaluation of long-context language models |
-| [BrowserBench](https://github.com/web-arena-x/browserbench-main) | — | eval, browser, web | Browser-based agent capability benchmark |
-| [GAIA](https://huggingface.co/datasets/gaia-benchmark/GAIA) | — | eval, general, agi | General AI Assistants benchmark for real-world task solving |
-
-#### Autonomy Horizon Resources
-
-| Resource | Stars | Tags | Description |
-|----------|-------|------|-------------|
-| [METR Autonomy Evals](https://metr.org/blog/2023-08-01-new-report-autonomous-replication-and-adaptation/) | — | autonomy, safety, risk | Research on measuring autonomous replication and adaptation |
-| [Remote Labor Index](https://metr.org/blog/2025-03-19-measuring-ai-ability-to-complete-long-tasks/) | — | autonomy, labor, tasks | METR survey measuring AI ability to complete long real-world tasks |
-| [GDPval Methodology](https://arxiv.org/abs/2312.11805) | — | capability, economics, valuation | Occupational task completion approach to economic value estimation |
-
-#### Leaderboards & Trackers
-
-| Resource | Stars | Tags | Description |
-|----------|-------|------|-------------|
-| [LMSYS Chatbot Arena](https://lmarena.ai/) | — | leaderboard, elo, human-pref | Human-preference Elo leaderboard for chat models |
-| [Open LLM Leaderboard](https://huggingface.co/spaces/open-llm-leaderboard/open_llm_leaderboard) | — | leaderboard, open, benchmarks | HuggingFace benchmark leaderboard for open models |
-| [Agent Arena](https://agentarena.ai/) | — | leaderboard, agents, behavior | Real-world agent session behavior and control observations |
-| [Scale HELM](https://crfm.stanford.edu/helm/) | — | leaderboard, holistic, evaluation | Holistic evaluation of language models across scenarios |
+1. Rate the use case on stakes, autonomy, reversibility, integration complexity and verifiability.
+2. Measure the factor nearest zero on your own tasks.
+3. Spend there.
+4. Check the organisation: volume, redesign, redeployment, fixed costs, and a named owner per factor.
+5. Re-run on every change of model, harness or tool. The binding constraint moves.
 
 ---
 
-### 2. Cost — Observability & Optimization
+## Key figures in the series
 
-Cost per successful task — retries and failures counted in.
+As published on 15 November 2026. Every figure carries its evidence type, because the series treats a vendor's number and a peer-reviewed number differently. The same figures, with dates and source links, are in [`data/benchmarks.yaml`](data/benchmarks.yaml).
 
-#### Token & Cost Tracking
+### The gap
 
-| Resource | Stars | Tags | Description |
-|----------|-------|------|-------------|
-| [Langfuse](https://github.com/langfuse/langfuse) | ![stars](https://img.shields.io/github/stars/langfuse/langfuse?style=flat-square) | observability, cost, tracing | Open-source LLM observability with cost tracking per trace |
-| [LiteLLM](https://github.com/BerriAI/litellm) | ![stars](https://img.shields.io/github/stars/BerriAI/litellm?style=flat-square) | proxy, cost, multi-provider | Unified LLM API proxy with cost tracking across 100+ providers |
-| [OpenLLMetry](https://github.com/traceloop/openllmetry) | ![stars](https://img.shields.io/github/stars/traceloop/openllmetry?style=flat-square) | observability, opentelemetry, cost | OpenTelemetry-based LLM observability SDK |
-| [Helicone](https://github.com/Helicone/helicone) | ![stars](https://img.shields.io/github/stars/Helicone/helicone?style=flat-square) | proxy, observability, cost | Open-source LLM observability and cost management proxy |
-| [OpenMeter](https://github.com/openmeterio/openmeter) | ![stars](https://img.shields.io/github/stars/openmeterio/openmeter?style=flat-square) | metering, billing, usage | Usage metering infrastructure for AI/cloud workloads |
+| Figure | Value | Source | Evidence |
+|--------|-------|--------|----------|
+| GDPval, wins or ties against experts | 47.6% at launch (Claude Opus 4.1, Sep 2025); 84.9% (GPT-5.5, Apr 2026) | [Patwardhan et al.](https://arxiv.org/abs/2510.04374); [OpenAI](https://openai.com/index/introducing-gpt-5-5/) | Preprint; vendor-reported |
+| Remote Labor Index, projects finished with no person in the loop | 2.5% (Oct 2025); 21.25% (Claude Opus 5.5, Oct 2026); 41.3% (Claude Fable 5.2, Nov 2026) | [Scale AI and CAIS](https://arxiv.org/abs/2510.26787); [Scale leaderboard](https://labs.scale.com/leaderboard/rli); [Anthropic system card](https://assets.claude.com/27d60918d218125e7504bc7354c4b4626ec56b11.pdf) | Preprint; independent leaderboard; run by Scale AI, vendor-reported |
+| Epoch Capabilities Index, best score | 122 (GPT-4) to 173 (Claude Fable 5.2) in 44 months | [Epoch AI](https://epoch.ai/eci) | Independent |
+| Change in the value of work, with a person in the loop | 1.4 to 2× (median, 349 technical workers) | [METR survey, May 2026](https://metr.org/blog/2026-05-11-ai-usage-survey/) | Self-reported |
+| CIOs reporting significant or transformational value from AI | 13% of 2,002 | [Gartner, Oct 2026](https://www.gartner.com/en/newsroom/press-releases/2026-10-19-gartner-survey-finds-only-13-percent-of-cios-say-their-enterprise-has-realized-significant-or-transformational-value-from-ai) | Analyst survey |
+| Agentic AI projects expected to be cancelled by end of 2027 | Over 40% | [Gartner, Jun 2025](https://www.gartner.com/en/newsroom/press-releases/2025-06-25-gartner-predicts-over-40-percent-of-agentic-ai-projects-will-be-canceled-by-end-of-2027) | Analyst forecast |
 
-#### Prompt & Context Optimization
+### One figure per factor
 
-| Resource | Stars | Tags | Description |
-|----------|-------|------|-------------|
-| [DSPy](https://github.com/stanfordnlp/dspy) | ![stars](https://img.shields.io/github/stars/stanfordnlp/dspy?style=flat-square) | optimization, prompts, programming | Framework for algorithmically optimizing prompts and pipelines |
-| [LLMLingua](https://github.com/microsoft/LLMLingua) | ![stars](https://img.shields.io/github/stars/microsoft/LLMLingua?style=flat-square) | compression, context, cost | Prompt compression to reduce token cost while preserving quality |
-| [TokenCount](https://github.com/openai/tiktoken) | ![stars](https://img.shields.io/github/stars/openai/tiktoken?style=flat-square) | tokenization, cost-estimation, tooling | Fast tokenizer for accurate cost estimation before API calls |
+| Factor | Figure | Value | Source | Evidence |
+|--------|--------|-------|--------|----------|
+| Capability | Task horizon of one model at two reliability bars (Claude Opus 4.6) | About 12 hours at 50%; about 70 minutes at 80% | [METR](https://metr.org/time-horizons/) | Independent; tracker no longer updated since Sep 2026 |
+| Cost | Cost per solved task on Terminal-Bench 4.0, among models above 55% | About $3 to about $31, a spread of about 10× | [Vals AI, 11 Nov 2026](https://www.vals.ai/benchmarks/terminal-bench-4) | Independent |
+| Cost | Model pairs where the cheaper list price has the higher total cost | 32%, by up to 28× | [Chen et al.](https://arxiv.org/abs/2603.23971) | Preprint |
+| Reliability | APEX-Agents, best agent: single try against all eight tries | 24% against 13.4% | [Mercor](https://arxiv.org/abs/2601.14242) | Vendor-built benchmark |
+| Reliability | OSWorld 2.1, Claude Fable 5.2: partial credit against strict pass | 89.3% against 54.6% | [Anthropic system card](https://assets.claude.com/27d60918d218125e7504bc7354c4b4626ec56b11.pdf) | Vendor-reported |
+| Safety | Unsanctioned attacks across three OpenAI generations, in simulations | 0% to 29.2% | [UK AISI](https://www.aisi.gov.uk/blog/gpt-6-astra-performs-unsanctioned-supply-chain-attacks-in-simulations) | Government |
+| Safety | False success reports after a tool fails, without and with an evidence contract | 22.8% to 0.8% | [FTA](https://arxiv.org/abs/2609.35732) | Preprint |
+| Controllability | OpenAI's September 2026 incident: time to alert, and time to stop | 11 min 48 s; 2 h 44 min | [OpenAI](https://alignment.openai.com/misalignment-reports/an-agent-used-dns-to-reach-an-external-chatbot/) | Vendor-reported |
+| Controllability | Injection defences that fell to adaptive attacks | 12 of 12, most at over 90% success | [Nasr et al.](https://www.usenix.org/system/files/usenixsecurity26-nasr.pdf) | Peer-reviewed |
 
-#### Model Routing & Efficiency
+### The worked case (Part 6)
 
-| Resource | Stars | Tags | Description |
-|----------|-------|------|-------------|
-| [RouteLLM](https://github.com/lm-sys/RouteLLM) | ![stars](https://img.shields.io/github/stars/lm-sys/RouteLLM?style=flat-square) | routing, cost, efficiency | Cost-efficient routing between strong and weak LLMs |
-| [OpenRouter](https://github.com/OpenRouterAI/openrouter-runner) | ![stars](https://img.shields.io/github/stars/OpenRouterAI/openrouter-runner?style=flat-square) | routing, multi-model, cost | Unified API routing across models with cost transparency |
-
-#### Cost Calculators & References
-
-| Resource | Stars | Tags | Description |
-|----------|-------|------|-------------|
-| [llm-price-check](https://github.com/AmberSahdev/Open-Interface) | — | pricing, comparison, reference | LLM pricing comparison across providers |
-| [AI Cost Calculator](https://huggingface.co/spaces/philschmid/llm-pricing) | — | pricing, huggingface, calculator | HuggingFace-hosted LLM pricing estimation tool |
-
----
-
-### 3. Reliability — Testing & Production Harnesses
-
-Distinguishes benchmark pass@1 from production pass@always.
-
-#### Agent Testing Frameworks
-
-| Resource | Stars | Tags | Description |
-|----------|-------|------|-------------|
-| [AgentEval](https://github.com/microsoft/autogen/tree/main/samples/tools/agenteval) | — | eval, autogen, reliability | AutoGen-based framework for quantifying agent task utility |
-| [Promptfoo](https://github.com/promptfoo/promptfoo) | ![stars](https://img.shields.io/github/stars/promptfoo/promptfoo?style=flat-square) | testing, ci, regression | LLM test framework for CI/CD regression and reliability testing |
-| [DeepEval](https://github.com/confident-ai/deepeval) | ![stars](https://img.shields.io/github/stars/confident-ai/deepeval?style=flat-square) | testing, metrics, evaluation | Unit-testing framework for LLM applications |
-| [RAGAS](https://github.com/explodinggradients/ragas) | ![stars](https://img.shields.io/github/stars/explodinggradients/ragas?style=flat-square) | rag, evaluation, metrics | Evaluation framework for RAG pipelines |
-| [UpTrain](https://github.com/uptrain-ai/uptrain) | ![stars](https://img.shields.io/github/stars/uptrain-ai/uptrain?style=flat-square) | evaluation, monitoring, reliability | Open-source LLM evaluation and monitoring platform |
-
-#### Production Observability
-
-| Resource | Stars | Tags | Description |
-|----------|-------|------|-------------|
-| [LangSmith](https://smith.langchain.com/) | — | tracing, debugging, production | LangChain's production monitoring and debugging platform |
-| [Langfuse](https://github.com/langfuse/langfuse) | ![stars](https://img.shields.io/github/stars/langfuse/langfuse?style=flat-square) | tracing, sessions, production | Open-source LLM observability with session-level tracing |
-| [Arize Phoenix](https://github.com/Arize-ai/phoenix) | ![stars](https://img.shields.io/github/stars/Arize-ai/phoenix?style=flat-square) | observability, evals, tracing | Open-source AI observability and evaluation platform |
-| [Weights & Biases Weave](https://github.com/wandb/weave) | ![stars](https://img.shields.io/github/stars/wandb/weave?style=flat-square) | tracing, evals, production | W&B toolkit for tracking and evaluating LLM applications |
-
-#### Retry & Resilience Patterns
-
-| Resource | Stars | Tags | Description |
-|----------|-------|------|-------------|
-| [Tenacity](https://github.com/jd/tenacity) | ![stars](https://img.shields.io/github/stars/jd/tenacity?style=flat-square) | retry, resilience, python | Python retry library for transient failure handling |
-| [Instructor](https://github.com/jxnl/instructor) | ![stars](https://img.shields.io/github/stars/jxnl/instructor?style=flat-square) | structured-output, validation, retry | Structured output extraction with validation and retry logic |
-| [Outlines](https://github.com/outlines-dev/outlines) | ![stars](https://img.shields.io/github/stars/outlines-dev/outlines?style=flat-square) | structured-output, reliability, generation | Guaranteed structured text generation for reliable outputs |
-
-#### Integration Reliability
-
-| Resource | Stars | Tags | Description |
-|----------|-------|------|-------------|
-| [Pydantic](https://github.com/pydantic/pydantic) | ![stars](https://img.shields.io/github/stars/pydantic/pydantic?style=flat-square) | validation, schema, integration | Data validation to guard against schema drift across integrations |
-| [MCP (Model Context Protocol)](https://github.com/modelcontextprotocol/servers) | ![stars](https://img.shields.io/github/stars/modelcontextprotocol/servers?style=flat-square) | protocol, tools, integration | Standardized protocol reducing integration surface fragility |
+| Figure | Value | Source | Evidence |
+|--------|-------|--------|----------|
+| Human cost per live contact | $8.01 | [Gartner, Sep 2019](https://www.gartner.com/en/newsroom/press-releases/2019-09-25-gartner-says-only-9--of-customers-report-solving-thei) | Reported; seven years old |
+| Agent price | $0.99 per resolution | [Fin](https://www.intercom.com/help/en/articles/8205718-fin-resolutions) | Published list price, checked 1 Nov 2026 |
+| Resolution rate | 76% vendor average; 50.8% in one deployment | [Fin, Mar 2026](https://fin.ai/learn/roi-ai-customer-service-agents-benchmarks) | Vendor-reported |
+| Saving per conversation, with no silent failures | $5.34 at 76%; $3.57 at 50.8% | Computed in Part 6 | Arithmetic on the inputs above |
+| Silent-failure rate that erases the saving, at US$600 a failure | 0.9% at 76%; 0.6% at 50.8% | Computed in Part 6; [Moffatt v. Air Canada](https://decisions.civilresolutionbc.ca/crt/crtd/en/525448/1/document.do) | Arithmetic; tribunal decision |
+| Silent-failure rate in the public record | Unreported | No source found | Missing |
 
 ---
 
-### 4. Safety — Guardrails & Behavior
+## Sources by factor
 
-Agent's inherent behavioral properties under uncertainty.
+Benchmarks, tools and standards the series cites. Every link was checked on 14 November 2026. The articles carry the full reference lists.
 
-#### Guardrail Frameworks
+### Capability
 
-| Resource | Stars | Tags | Description |
-|----------|-------|------|-------------|
-| [Guardrails AI](https://github.com/guardrails-ai/guardrails) | ![stars](https://img.shields.io/github/stars/guardrails-ai/guardrails?style=flat-square) | guardrails, validation, safety | Framework for structured output and behavioral guardrails |
-| [NeMo Guardrails](https://github.com/NVIDIA/NeMo-Guardrails) | ![stars](https://img.shields.io/github/stars/NVIDIA/NeMo-Guardrails?style=flat-square) | guardrails, dialogue, safety | NVIDIA's toolkit for adding safety rails to LLM applications |
-| [LlamaGuard](https://github.com/meta-llama/PurpleLlama/tree/main/Llama-Guard3) | — | safety, classification, content | Meta's safety classifier for detecting policy violations |
-| [Rebuff](https://github.com/protectai/rebuff) | ![stars](https://img.shields.io/github/stars/protectai/rebuff?style=flat-square) | prompt-injection, safety, defense | Self-hardening prompt injection detector |
+| Source | What it is | Evidence |
+|--------|------------|----------|
+| [GDPval](https://arxiv.org/abs/2510.04374) | 1,320 real deliverables across 44 occupations, judged blind against experts | Preprint (OpenAI) |
+| [GDPval-AA](https://artificialanalysis.ai/evaluations/gdpval-aa) | The same target, run through a standard open harness | Independent |
+| [Remote Labor Index](https://arxiv.org/abs/2510.26787) and its [leaderboard](https://labs.scale.com/leaderboard/rli) | 240 paid freelance projects, finished with no person in the loop | Preprint; independent leaderboard |
+| [Epoch Capabilities Index](https://epoch.ai/eci) and its [public repository](https://github.com/epoch-research/eci-public) | Composite scale stitching 40+ benchmarks | Independent |
+| [METR time horizons](https://metr.org/time-horizons/) | Task length at a stated reliability threshold | Independent; no longer updated |
+| [Agents' Last Exam](https://snorkel.ai/blog/agents-last-exam-reading-group/) | 1,500 professional workflows across 55 fields, graded by code where possible | Preprint |
+| [Terminal-Bench 4.0](https://www.tbench.ai/news/terminal-bench-4-0) | 66 long agentic tasks in a terminal | Independent; rated "Flawed" by Epoch AI |
+| [SWE-bench Pro](https://labs.scale.com/leaderboard/swe_bench_pro_public) | Real GitHub issues in larger codebases. State which measurement condition you quote | Independent leaderboard |
+| [SWE-bench Live](https://swe-bench-live.github.io/) | The same target, on issues never seen in training | Independent |
+| [HAL](https://arxiv.org/pdf/2510.11977) | Cost-aware agent evaluation across nine benchmarks | Peer-reviewed (ICLR 2026) |
+| [BFCL v4](https://gorilla.cs.berkeley.edu/blogs/17_bfcl_v4_prompt_variation.html) | Function calling, web search, memory, multi-turn | Independent |
+| [MTEB](https://huggingface.co/spaces/mteb/leaderboard) | Retrieval and embedding capability | Independent leaderboard |
+| [OSWorld 2.0](https://arxiv.org/abs/2606.29537) and its [repository](https://github.com/xlang-ai/OSWorld-V2) | 108 long workflows across desktop applications | Preprint |
 
-#### Safety Standards & Research
+### Cost
 
-| Resource | Stars | Tags | Description |
-|----------|-------|------|-------------|
-| [Anthropic's Model Spec](https://anthropic.com/claude/model-spec) | — | safety, alignment, principles | Claude's character, values and decision-making framework |
-| [Anthropic's RSP](https://anthropic.com/rsp) | — | safety, policy, responsible-scaling | Responsible Scaling Policy with safety thresholds |
-| [METR Safety Evals](https://metr.org/) | — | safety, autonomy, evaluation | Research on catastrophic risk from advanced AI systems |
-| [NIST AI RMF](https://airc.nist.gov/RMF_Overview) | — | safety, risk, governance | NIST AI Risk Management Framework for trustworthy AI |
-| [AI Safety Fundamentals](https://course.aisafetyfundamentals.com/) | — | safety, education, fundamentals | Structured curriculum on AI safety concepts |
+| Source | What it is | Evidence |
+|--------|------------|----------|
+| [Vals AI, Terminal-Bench 4.0](https://www.vals.ai/benchmarks/terminal-bench-4) | Every model in the same minimal harness, with cost per test | Independent |
+| [LLM Frontier](https://llm-frontier.catalystneuro.com/) and its [repository](https://github.com/catalystneuro/llm-frontier) | The cheapest way to reach each level of the Artificial Analysis Intelligence Index | Independent |
+| [Artificial Analysis Intelligence Index v5](https://artificialanalysis.ai/articles/artificial-analysis-intelligence-index-v5) | Composite index with measured cost per task | Independent |
+| [Price reversal in reasoning models](https://arxiv.org/abs/2603.23971) | List price against total cost, eight models, twelve tasks | Preprint |
+| [RouteLLM](https://arxiv.org/abs/2406.18665) | Model routing: 95% of GPT-4 quality at 26% strong-model calls | Peer-reviewed (ICLR 2025) |
+| [FrugalGPT](https://arxiv.org/abs/2305.05176) | Cascades and confidence gating | Peer-reviewed (TMLR) |
+| [AgentDiet](https://arxiv.org/abs/2509.23586) | Trajectory reduction for agents | Peer-reviewed (FSE 2026) |
+| [LLMLingua](https://github.com/microsoft/LLMLingua) | Prompt compression | Peer-reviewed (EMNLP 2023) |
+| [Mini-SWE-Agent](https://github.com/SWE-agent/mini-swe-agent) | A minimal harness, used as the baseline in harness comparisons | Open source |
+| [Anthropic, Building effective agents](https://www.anthropic.com/research/building-effective-agents) | Workflow or agent | Provider guidance |
+| [Anthropic, Contextual Retrieval](https://www.anthropic.com/news/contextual-retrieval) | Retrieval engineering | Provider, self-reported |
 
-#### Behavioral Testing
+### Reliability
 
-| Resource | Stars | Tags | Description |
-|----------|-------|------|-------------|
-| [Giskard](https://github.com/Giskard-AI/giskard) | ![stars](https://img.shields.io/github/stars/Giskard-AI/giskard?style=flat-square) | testing, safety, red-teaming | Open-source testing framework for LLM safety vulnerabilities |
-| [PyRIT](https://github.com/Azure/PyRIT) | ![stars](https://img.shields.io/github/stars/Azure/PyRIT?style=flat-square) | red-teaming, safety, automation | Microsoft's Python Risk Identification Toolkit for red-teaming |
-| [HarmBench](https://github.com/centerforaisafety/HarmBench) | ![stars](https://img.shields.io/github/stars/centerforaisafety/HarmBench?style=flat-square) | benchmark, safety, harm | Standardized evaluation of automated red-teaming methods |
+| Source | What it is | Evidence |
+|--------|------------|----------|
+| [τ-bench](https://arxiv.org/abs/2406.12045) and [τ²-bench](https://github.com/sierra-research/tau2-bench) | Agents serving simulated users under a written policy, graded on the final database state, with pass^k built in | Preprint |
+| [APEX-Agents](https://arxiv.org/abs/2601.14242) and [APEX-Agents 1.1](https://www.mercor.com/blog/introducing-apex-agents-1-1/) | Banking, consulting and legal work, with pass@k and pass^k | Vendor-built |
+| [HAL Reliability Dashboard](https://hal.cs.princeton.edu/reliability/) and [hal-harness](https://github.com/princeton-pli/hal-harness) | Twelve reliability metrics, with paraphrase and injected faults | Peer-reviewed (ICML 2026) |
+| [Inspect](https://inspect.aisi.org.uk/) and its [repository](https://github.com/UKGovernmentBEIS/inspect_ai) | Evaluation framework with a built-in pass^k reducer | Government (UK AISI) |
+| [Husain and Shankar, evals FAQ](https://hamel.dev/blog/posts/evals-faq/) | How to build a golden set from real traces | Practitioner guidance |
+| [IMDA starter kit for testing agentic systems](https://www.imda.gov.sg/assets/603572eb-724a-46cf-ac12-14fe38e1558c.pdf) | Repeated runs, worst run, trajectory capture | Government (Singapore) |
+| [Anthropic, Demystifying evals for AI agents](https://anthropic.com/engineering/demystifying-evals-for-ai-agents) | Grader design for agents | Provider guidance |
+| [OpenTelemetry GenAI semantic conventions](https://github.com/open-telemetry/semantic-conventions/releases/tag/v1.42.0) | Agent and tool spans for traces | Open standard |
 
-#### Prompt Injection Defense
+### Safety
 
-| Resource | Stars | Tags | Description |
-|----------|-------|------|-------------|
-| [Lakera Guard](https://github.com/lakeraai/pint-benchmark) | — | prompt-injection, benchmark, defense | Prompt injection and jailbreak benchmark for safety testing |
-| [Vigil](https://github.com/deadbits/vigil-llm) | ![stars](https://img.shields.io/github/stars/deadbits/vigil-llm?style=flat-square) | prompt-injection, scanner, safety | LLM prompt injection and jailbreak detection scanner |
+| Source | What it is | Evidence |
+|--------|------------|----------|
+| [UK AISI on GPT-6 Astra](https://www.aisi.gov.uk/blog/gpt-6-astra-performs-unsanctioned-supply-chain-attacks-in-simulations) | Unsanctioned attacks in simulated environments | Government |
+| [OpenAgentSafety](https://arxiv.org/abs/2507.06134) | 356 tasks with real tools, graded on the final environment state | Peer-reviewed (ICLR 2026) |
+| [ToolEmu](https://arxiv.org/abs/2309.15817) | Risky tool use in an LLM-emulated sandbox | Peer-reviewed (ICLR 2024) |
+| [OS-Harm](https://arxiv.org/abs/2506.14866) | 150 computer-use tasks | Peer-reviewed (NeurIPS 2025) |
+| [Agent-SafetyBench](https://arxiv.org/abs/2412.14470) | 2,000 cases in 349 environments | Preprint |
+| [SHADE-Arena](https://arxiv.org/abs/2506.15740) | A hidden harmful side task, and monitors that try to catch it | Preprint |
+| [MASK](https://arxiv.org/abs/2503.03750) | Whether a model contradicts its own beliefs under pressure | Preprint |
+| [FTA](https://arxiv.org/abs/2609.35732), [OverclaimBench](https://arxiv.org/abs/2609.20812), [CAPE-Bench](https://arxiv.org/abs/2610.17301), [AgentDecept](https://arxiv.org/abs/2610.39377) | Whether the agent's report matches what it did | Preprints |
+| [Petri](https://alignment.anthropic.com/2025/petri) | Open-source auditing tool built on Inspect | Provider |
+| [Project Moonshot](https://aiverifyfoundation.sg/project-moonshot/) | Benchmarking and red-teaming toolkit for LLM applications | Government-backed (Singapore) |
+| [NIST AI RMF 1.0](https://www.nist.gov/itl/ai-risk-management-framework) and [Generative AI Profile](https://doi.org/10.6028/NIST.AI.600-1) | Govern, Map, Measure, Manage | Standard |
+| [EU AI Act](https://eur-lex.europa.eu/eli/reg/2024/1689/oj) | Articles 9, 12, 14 and 15 for high-risk systems | Regulation |
+| [IMDA Model AI Governance Framework for Agentic AI v1.5](https://www.imda.gov.sg/-/media/imda/files/about/emerging-tech-and-research/artificial-intelligence/mgf-for-agentic-ai.pdf) | Governance framework for agents | Government (Singapore) |
 
----
+### Controllability
 
-### 5. Controllability — Permissions, Sandboxing & Audit
+| Source | What it is | Evidence |
+|--------|------------|----------|
+| [OpenAI, An agent used DNS to reach an external chatbot](https://alignment.openai.com/misalignment-reports/an-agent-used-dns-to-reach-an-external-chatbot/) | Incident report with a halt timeline | Vendor-reported |
+| [The Attacker Moves Second](https://www.usenix.org/system/files/usenixsecurity26-nasr.pdf) | Twelve injection defences against adaptive attacks | Peer-reviewed (USENIX Security 2026) |
+| [CaMeL](https://arxiv.org/abs/2503.18813) | A design that keeps the plan apart from untrusted data: 0 of 949 attacks succeeded | Preprint |
+| [The lethal trifecta](https://simonwillison.net/2025/Jun/16/the-lethal-trifecta/) | Private data, untrusted content and an outside channel | Practitioner analysis |
+| [OWASP Top 10 for Agentic Applications](https://genai.owasp.org/resource/owasp-top-10-for-agentic-applications-for-2026/) | Ten security risks, ASI01 to ASI10 | Industry standard |
+| [MAS Guidelines on AI Risk Management](https://www.mas.gov.sg/regulation/guidelines/guidelines-on-artificial-intelligence-risk-management-for-financial-institutions) | Inventory, least privilege, kill switches tested regularly | Regulator (Singapore) |
+| [Anthropic, Claude Code auto mode](https://www.anthropic.com/engineering/claude-code-auto-mode) | Permission prompts and approval rates | Vendor-reported |
+| [Breaking Claude Code with Opus 5 and auto mode](https://embracethered.com/blog/posts/2026/breaking-claude-code-opus-5-and-automode/) | An attacker who has read the defence | Independent researcher |
+| [Anthropic system card, Claude Fable 5.2 and Claude Mythos 5.2](https://assets.claude.com/27d60918d218125e7504bc7354c4b4626ec56b11.pdf) | Safeguard tests, fallback route, external red team | Vendor-reported |
 
-Operator's external leverage over agent behavior, blast radius, and kill switches.
+### The business case
 
-#### Execution Sandboxes
-
-| Resource | Stars | Tags | Description |
-|----------|-------|------|-------------|
-| [E2B](https://github.com/e2b-dev/e2b) | ![stars](https://img.shields.io/github/stars/e2b-dev/e2b?style=flat-square) | sandbox, code-execution, isolation | Secure cloud sandboxes for AI code execution |
-| [Daytona](https://github.com/daytonaio/daytona) | ![stars](https://img.shields.io/github/stars/daytonaio/daytona?style=flat-square) | sandbox, devcontainer, isolation | Secure development environment manager for agent execution |
-| [Modal](https://github.com/modal-labs/modal-client) | ![stars](https://img.shields.io/github/stars/modal-labs/modal-client?style=flat-square) | sandbox, serverless, isolation | Serverless cloud with strong isolation for AI workloads |
-| [Firecracker](https://github.com/firecracker-microvm/firecracker) | ![stars](https://img.shields.io/github/stars/firecracker-microvm/firecracker?style=flat-square) | sandbox, microvm, isolation | AWS's lightweight microVM for secure workload isolation |
-| [gVisor](https://github.com/google/gvisor) | ![stars](https://img.shields.io/github/stars/google/gvisor?style=flat-square) | sandbox, container, kernel | Google's container sandbox providing kernel-level isolation |
-
-#### Permissions & Policy Engines
-
-| Resource | Stars | Tags | Description |
-|----------|-------|------|-------------|
-| [Open Policy Agent](https://github.com/open-policy-agent/opa) | ![stars](https://img.shields.io/github/stars/open-policy-agent/opa?style=flat-square) | policy, authorization, rego | Unified policy enforcement engine for access control |
-| [Cedar](https://github.com/cedar-policy/cedar) | ![stars](https://img.shields.io/github/stars/cedar-policy/cedar?style=flat-square) | policy, authorization, aws | Amazon's policy language and engine for fine-grained permissions |
-| [Cerbos](https://github.com/cerbos/cerbos) | ![stars](https://img.shields.io/github/stars/cerbos/cerbos?style=flat-square) | authorization, policy, rbac | Open-source authorization service with role-based policies |
-
-#### Audit & Observability
-
-| Resource | Stars | Tags | Description |
-|----------|-------|------|-------------|
-| [OpenTelemetry](https://github.com/open-telemetry/opentelemetry-python) | ![stars](https://img.shields.io/github/stars/open-telemetry/opentelemetry-python?style=flat-square) | audit, tracing, observability | Vendor-neutral observability framework for distributed traces |
-| [Vector](https://github.com/vectordotdev/vector) | ![stars](https://img.shields.io/github/stars/vectordotdev/vector?style=flat-square) | logging, audit, pipeline | High-performance observability data pipeline for audit logs |
-| [Falco](https://github.com/falcosecurity/falco) | ![stars](https://img.shields.io/github/stars/falcosecurity/falco?style=flat-square) | security, runtime, audit | Runtime security monitoring for detecting anomalous behavior |
-
-#### Human-in-the-Loop Patterns
-
-| Resource | Stars | Tags | Description |
-|----------|-------|------|-------------|
-| [Temporal](https://github.com/temporalio/temporal) | ![stars](https://img.shields.io/github/stars/temporalio/temporal?style=flat-square) | workflow, hitl, durability | Durable workflow engine with human approval step support |
-| [Prefect](https://github.com/PrefectHQ/prefect) | ![stars](https://img.shields.io/github/stars/PrefectHQ/prefect?style=flat-square) | workflow, hitl, orchestration | Workflow orchestration with manual approval and pause capabilities |
-
-#### Agent Frameworks with Built-in Controls
-
-| Resource | Stars | Tags | Description |
-|----------|-------|------|-------------|
-| [LangGraph](https://github.com/langchain-ai/langgraph) | ![stars](https://img.shields.io/github/stars/langchain-ai/langgraph?style=flat-square) | orchestration, hitl, state | Graph-based agent framework with checkpointing and interrupts |
-| [CrewAI](https://github.com/crewAIInc/crewAI) | ![stars](https://img.shields.io/github/stars/crewAIInc/crewAI?style=flat-square) | orchestration, roles, permissions | Multi-agent framework with role-based access and guardrails |
-
----
-
-### 6. Framework Resources & Templates
-
-| Resource | Description |
-|----------|-------------|
-| [`framework/scorecard.md`](framework/scorecard.md) | Five-factor evaluation scorecard with scoring rubric |
-| [`framework/use-case-weights.md`](framework/use-case-weights.md) | Context-dependent factor weighting guide by use case type |
-| [`templates/evaluation-worksheet.md`](templates/evaluation-worksheet.md) | Practitioner worksheet for scoring a specific deployment |
-| [`templates/deployment-checklist.md`](templates/deployment-checklist.md) | Pre-deployment checklist covering all five factors |
-| [`data/benchmarks.yaml`](data/benchmarks.yaml) | Structured benchmark data cited in the article series |
+| Source | What it is | Evidence |
+|--------|------------|----------|
+| [Klarna Q3 2025 investor presentation](https://www.sec.gov/Archives/edgar/data/2003292/000162828025052805/exhibit992klarnapresenta.htm) | The longest public record of a customer service agent | Company-reported |
+| [Fin resolutions](https://www.intercom.com/help/en/articles/8205718-fin-resolutions) | Price per resolution, and what counts as resolved | Published definition |
+| [Moffatt v. Air Canada, 2024 BCCRT 149](https://decisions.civilresolutionbc.ca/crt/crtd/en/525448/1/document.do) | What one wrong answer cost | Tribunal decision |
+| [STABL, The missing quadrant](https://stablai.substack.com/p/the-missing-quadrant-in-responses) | Automation, augmentation and organisational change | Researcher analysis |
 
 ---
 
-## Key Metrics Referenced in the Series
+## Honest limits
 
-| Metric | Source | Value | Notes |
-|--------|--------|-------|-------|
-| Capability ceiling (GDPval) | Anthropic | 47.6% → ~83% | wins-or-ties vs. expert humans, Sept 2025 → mid-2026 |
-| Productivity gain with HITL | METR Survey | 1.4×–2× | median change in work value |
-| Autonomous task completion | Remote Labor Index | 2.5% | at acceptable quality, best agents |
-| Task horizon at 50% reliability | METR | ~14.5 hours | maximum economically viable task length |
-| Task horizon at 80% reliability | METR | ~1 hour | drops sharply with higher reliability bar |
-| Control reversion rate | Agent Arena | 2.3× | users pull control back vs. hand over more |
-| Canceled agentic AI projects | Gartner | >40% | projected cancellation by end of 2027 |
+- The formula is a diagnostic. It finds the binding constraint. It does not produce a single score, and this repository no longer asks for one.
+- Only cost aggregates cleanly. Safety and controllability resist that arithmetic.
+- The factors trade off. Cutting cost can cost capability. Tighter controls can cost latency.
+- The newest evidence is mostly vendor-run, and the newest models increasingly recognise when they are being tested. Treat lab safety numbers as a best case.
+- Figures date quickly. Check the article change logs before quoting a number from here.
 
 ---
 
 ## Contributing
 
-See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines on adding resources, updating benchmarks, or proposing structural changes.
-
----
+See [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## License
 

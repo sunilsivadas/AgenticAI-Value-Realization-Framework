@@ -1,95 +1,120 @@
 # Factor 3: Reliability
 
-> Covered in depth in **Part 3** of the Realized Value series (forthcoming).
+Summary of [Part 3, Reliability is getting it right every time](https://sunilsivadas.github.io/reliability.html). The article carries the evidence and the full references.
 
-Reliability is the factor most severely impacted by the gap between benchmark conditions and production reality. Benchmarks report pass@1. Production demands pass@always.
-
----
-
-## The pass@1 vs. pass@always Gap
-
-Benchmarks measure whether an agent *can* complete a task. Production requires it to complete that task *consistently*, across heterogeneous inputs, with real tool integrations, under load.
-
-The METR Remote Labor Index (2025) found the best autonomous agents completing only **2.5% of real-world tasks at acceptable quality** — despite frontier models scoring well above 50% on coding benchmarks under ideal conditions.
-
-The gap is explained by:
-
-1. **Distribution shift**: Production tasks differ from benchmark tasks in ways that matter
-2. **Integration failure surface**: Every real tool adds rate limits, authentication expiry, and schema drift
-3. **Compounding errors**: Multi-step agents accumulate errors; a 95% per-step rate means 60% over 10 steps
-4. **Context degradation**: Long-running tasks fill context windows, degrading later-step quality
+Benchmarks report pass@1. Production needs pass@always. Reliability is the second discount: does the agent finish every time, recover from mid-task errors, and fail safely when it cannot?
 
 ---
 
-## The Reliability-Horizon Interaction
+## Three claims
 
-The autonomy horizon — how long a task can be before agents fail economically — shrinks sharply as the required reliability bar rises:
-
-| Reliability Target | Maximum Viable Task Length |
-|--------------------|---------------------------|
-| 50% | ~14.5 hours |
-| 80% | ~1 hour |
-
-This is not a model limitation. It's a system property. Improving reliability directly extends the class of tasks the agent can viably handle.
+1. **Reliability is its own property, and it moves on a different curve from capability.**
+2. **Reliability is a system property, like capability.**
+3. **The unit that matters is pass^k on your own task distribution.**
 
 ---
 
-## Failure Mode Taxonomy
+## The unit
 
-Understanding failure mode distribution helps target improvements:
+**pass^k**: the share of tasks solved on all k tries. It is the number a customer gets.
 
-| Failure Mode | Cause | Mitigation |
-|-------------|-------|------------|
-| Tool call error | Bad parameter, missing field | Output validation, schema enforcement |
-| Integration timeout | Rate limit, network latency | Retry with backoff, circuit breakers |
-| Context overflow | Long task fills context window | Summarization, memory management |
-| Hallucinated action | Model invents non-existent tool/step | Output validation, tool schema strictness |
-| Compounding error | Early error propagates through steps | Checkpointing, step-level validation |
-| Silent failure | Agent reports success but output is wrong | Output verification, eval-as-judge |
+On Mercor's APEX-Agents, the best agent passed 24% of tasks on a single try and 13.4% on all eight ([Mercor](https://arxiv.org/abs/2601.14242)).
 
----
+Report pass^k with two rates beside it, because production has three outcomes for every run:
 
-## Measuring Production Reliability
+| Outcome | What happened | What it costs |
+|---------|---------------|---------------|
+| **Correct** | The result is right, checked against the golden answer or the system state | The run |
+| **Handed back** | The agent stopped and said so. A person picks it up | Attention. Budget for it |
+| **Silently wrong** | The agent finished, reported success, and the result is wrong | Money. Nobody knows until it lands |
 
-### Staging Environment Requirements
-
-A staging environment must match production on:
-- Tool integrations (not mocked)
-- Input distribution (sample from real task queue, not curated examples)
-- Load profile (test at representative concurrency)
-- Auth environment (real tokens that expire)
-
-### Reliability Metrics to Track
-
-| Metric | Definition |
-|--------|------------|
-| Task success rate | % of tasks completed successfully end-to-end |
-| First-attempt success rate | Success without any retry |
-| Mean attempts per success | Average retries needed when task eventually succeeds |
-| Silent failure rate | Tasks reported as complete but output is incorrect |
-| Integration error rate | Failures attributable to external tool/API issues |
+Take two agents. Agent A is correct on 80% of runs and silently wrong on 20%. Agent B is correct on 75%, hands back 20% and is silently wrong on 5%. On pass@1, A wins. In production, B is the one you can deploy.
 
 ---
 
-## Key Resources
+## The test you already hold
 
-See the [Reliability section of the main catalog](../README.md#3-reliability--testing--production-harnesses) for full resource tables.
+Run your golden dataset k times and sort every item into one of three groups:
 
-### Highlighted Resources
+- **Always passes.** Reliable on this item.
+- **Never passes.** A capability gap. More runs will not fix it. Go back to Part 1.
+- **Sometimes passes.** The flaky middle. This is the reliability problem, and a single run hides it.
 
-| Resource | Why It Matters |
-|----------|---------------|
-| [Promptfoo](https://github.com/promptfoo/promptfoo) | Best tool for CI/CD regression testing of LLM behavior |
-| [DeepEval](https://github.com/confident-ai/deepeval) | Unit-test style framework for output quality evaluation |
-| [Arize Phoenix](https://github.com/Arize-ai/phoenix) | Production trace analysis for identifying reliability degradation |
-| [Instructor](https://github.com/jxnl/instructor) | Structured output extraction with automatic retry on validation failure |
-| [MCP Servers](https://github.com/modelcontextprotocol/servers) | Standardized tool protocol that reduces schema drift across integrations |
+Set k by tier. See the bar per tier in [`../framework/use-case-weights.md`](../framework/use-case-weights.md).
 
 ---
 
-## Common Pitfalls
+## Metrics to ask for
 
-- **Staging with mocked tools**: Mocked integrations hide the most common production failure modes.
-- **Measuring pass@1 only**: A 70% first-attempt rate looks acceptable until you realize 30% of tasks retry 5+ times, blowing the cost model.
-- **Ignoring silent failures**: Agents that return plausible-but-wrong output are harder to detect than crashes and cause more downstream damage.
-- **No step-level monitoring**: Task-level success rates don't show where in a multi-step pipeline failures cluster.
+Ask for these from any team, vendor or harness, measured on your own golden set and traffic.
+
+| Metric | What it tells you |
+|--------|-------------------|
+| pass^k at a stated k, with a confidence interval | How often the system gets it right every time |
+| Per-item split: always, sometimes, never | Which failures are reliability and which are capability |
+| Hand-back rate and silent-failure rate, per run | Whether failures arrive labelled or land unseen |
+| Strict pass beside partial credit, with the count of unfinished and timed-out runs | Whether the work was finished, or mostly done |
+| Worst run, beside the average | The run that matters most for high-recall tasks |
+| pass^k per channel and user group | Whether one channel or group carries the failures |
+| Per-step tool error and retry rates | Where the compounding starts |
+| Recovery rate after an injected fault | Whether the agent resumes or starts over |
+| Calibration of the confidence used to hand back | Whether hand-backs fire on the right runs |
+| Verifier false-accept and false-reject rates | Silent failures let through, and retries wasted |
+| Judge true positive and true negative rates against an expert's labels | Whether grader error is moving pass^k |
+| Change after a model, harness, tool or infrastructure upgrade | Whether reliability moved when accuracy did not |
+
+---
+
+## The twelve levers, in five groups
+
+| Group | Question | Levers |
+|-------|----------|--------|
+| **D. Design out variance** | Can the run avoid the failure at all? | R1. Workflow before agent. R2. Fewer steps. R3. Deterministic tools and a fixed environment |
+| **V. Verify** | Does the run know when it is wrong? | R4. Code verifiers and tests. R5. Critic or verifier loops. R6. Ask before guessing |
+| **R. Recover** | Can the run resume after an error? | R7. Checkpoints and resumable state. R8. Idempotent, retry-safe tools. R9. Bounded retries with fallback |
+| **C. Contain** | Does the run stop before it does damage? | R10. Abstain on low confidence |
+| **O. Observe** | Will you see the drift? | R11. Trace-level telemetry. R12. Regression evals on every change |
+
+---
+
+## Order of operations
+
+1. **Set the bar per action.** List the actions, rate consequence, exposure and detection, and write down the k and silent-failure rate each tier needs. Governance signs off the bar and names its owner.
+2. **Run the golden set k times.** Add paraphrases, faults and long sessions. Count three outcomes. Check the grader against humans, and use code where the answer is known.
+3. **Separate the failures.** Items that never pass are capability problems. Items that pass some of the time are reliability problems.
+4. **Design out variance** (R1 to R3).
+5. **Add verification** (R4 to R6). Code checks first, critics where code cannot reach. Measure the verifier's two error rates.
+6. **Add recovery** (R7 to R9).
+7. **Add containment** (R10). Hand back on low confidence, within a hand-back budget.
+8. **Observe** (R11, R12). Trace production, compute pass^k from real runs, feed incidents into the golden set, and re-run it on every change.
+
+Steps 1 to 3 are measurement. Most of the leverage is in steps 4 and 5.
+
+---
+
+## Traps
+
+| Trap | The mistake |
+|------|-------------|
+| The Golden-Set Trap | Run the golden dataset once before each release |
+| The Pass@1 Trap | Write an SLA around a single-try score |
+| The Best-Run Trap | Judge the agent on a demo |
+| The Averaging Trap | Report mean success |
+| The Small-Sample Trap | Compare pass^k on a few dozen tasks. At 30 tasks the interval is about ±18 points |
+| The Grader Trap | Trust an LLM judge on a new model |
+| The Retry-Hides-It Trap | Let retries absorb flakiness |
+| The Version Trap | Compare scores across benchmark releases |
+| The Upgrade Regression Trap | Swap the model, keep the harness, skip the evals |
+| The Max-Effort Trap | Set effort to max and assume the best result |
+
+---
+
+## Link to the other factors
+
+- Reliability supplies the **measurement clause** of the [contract](../framework/contract.md).
+- pass^k, the hand-back rate and the silent-failure rate are numbers 2 to 4 on the [scorecard](../framework/scorecard.md).
+- Verification costs money. Reliability levers raise cost per run, so re-measure cost per successful task after adding them.
+
+Benchmarks and tools you can run are listed in the [README](../README.md#reliability).
+
+Next: [Safety](safety.md).

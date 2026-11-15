@@ -1,133 +1,335 @@
-# Benchmark and metric data cited in the Realized Value article series.
-# Format: name, value, date, source, notes
+# Key figures and benchmarks cited in the Realized Value article series.
+# Aligned with the series as published on 2026-11-15.
+#
+# Every figure carries its evidence type. The series treats these differently:
+#   peer-reviewed    a paper at a recognised venue
+#   government       a public body's own evaluation
+#   independent      a third party with no stake in the result
+#   preprint         a paper that has not been peer-reviewed
+#   vendor-reported  the company that makes or sells the system
+#   self-reported    survey answers or a company's account of itself
+#   analyst          an analyst firm's survey or forecast
+#   legal            a court or tribunal decision
+#   computed         arithmetic on the inputs above it
+#
+# Figures date quickly. Check the article change logs before quoting one.
 
-metrics:
+series:
+  title: "Realized Value: A Framework for Evaluating Agentic AI in the Enterprise"
+  author: "Sunil Sivadas"
+  url: "https://sunilsivadas.github.io/realized-value.html"
+  aligned_on: "2026-11-15"
+  formula: "realized value = capability x cost x reliability x safety x controllability"
+  articles:
+    - {part: 0, title: "Realized Value: A Framework for Evaluating Agentic AI in the Enterprise", url: "https://sunilsivadas.github.io/realized-value.html", version: "v16"}
+    - {part: 1, title: "Capability is a system property", url: "https://sunilsivadas.github.io/capability.html", version: "v27"}
+    - {part: 2, title: "Cost engineering for agentic AI", url: "https://sunilsivadas.github.io/cost.html", version: "v16"}
+    - {part: 3, title: "Reliability is getting it right every time", url: "https://sunilsivadas.github.io/reliability.html", version: "v7"}
+    - {part: 4, title: "Safety is how an agent behaves when it is unsure", url: "https://sunilsivadas.github.io/safety.html", version: "v5"}
+    - {part: 5, title: "Controllability is what you can do when the agent is wrong", url: "https://sunilsivadas.github.io/controllability.html", version: "v4"}
+    - {part: 6, title: "From framework to ROI", url: "https://sunilsivadas.github.io/roi.html", version: "v7"}
 
-  - name: GDPval capability ceiling
+units:
+  capability: "Score on a relevant, unsaturated benchmark or internal eval, under generous conditions, with no reliability threshold"
+  cost: "Cost per successful task = cost per run / success rate"
+  reliability: "pass^k, with the hand-back rate and the silent-failure rate"
+  safety: "Severity-weighted unsafe-action rate, at its intervention rate"
+  controllability: "Bounded share, bound-leak rate, time-to-halt, gate load"
+
+figures:
+
+  # ---- The gap ----
+
+  - name: "GDPval, wins or ties against experts, at launch"
     factor: capability
-    value: "47.6% wins-or-ties vs. expert humans"
-    date: "2025-09"
+    value: "47.6%"
     model: "Claude Opus 4.1"
-    source: "Anthropic / GDPval methodology"
-    source_url: "https://anthropic.com"
-    notes: "Top models reached ~83% by mid-2026"
+    date: "2025-09"
+    source: "Patwardhan et al., GDPval (OpenAI)"
+    source_url: "https://arxiv.org/abs/2510.04374"
+    evidence: preprint
+    notes: "1,320 real deliverables across 44 occupations; gold subset; judged blind against experts"
 
-  - name: GDPval top-model ceiling
+  - name: "GDPval, wins or ties against experts"
     factor: capability
-    value: "~83% wins-or-ties vs. expert humans"
-    date: "2026-06"
-    model: "Top frontier models"
-    source: "Anthropic / GDPval methodology"
-    source_url: "https://anthropic.com"
-    notes: "Theoretical speed-up of ~100x"
+    value: "84.9%"
+    model: "GPT-5.5"
+    date: "2026-04"
+    source: "OpenAI"
+    source_url: "https://openai.com/index/introducing-gpt-5-5/"
+    evidence: vendor-reported
 
-  - name: METR productivity gain (HITL)
+  - name: "Remote Labor Index, best agent at launch"
     factor: capability
-    value: "1.4x-2x change in value of work"
-    date: "2025"
-    source: "METR Survey"
-    source_url: "https://metr.org"
-    notes: "Median gain with human-in-the-loop; reveals gap between theoretical and realized value"
+    value: "2.5%"
+    date: "2025-10"
+    source: "Scale AI and the Center for AI Safety"
+    source_url: "https://arxiv.org/abs/2510.26787"
+    evidence: preprint
+    notes: "240 paid freelance projects, finished with no person in the loop"
 
-  - name: Remote Labor Index autonomous completion
-    factor: reliability
-    value: "2.5% of tasks at acceptable quality"
-    date: "2025"
-    source: "METR Remote Labor Index"
-    source_url: "https://metr.org/blog/2025-03-19-measuring-ai-ability-to-complete-long-tasks/"
-    notes: "Best agents; most range 0.8%-2.5%"
+  - name: "Remote Labor Index, best agent"
+    factor: capability
+    value: "21.25%"
+    model: "Claude Opus 5.5"
+    date: "2026-10"
+    source: "Scale leaderboard"
+    source_url: "https://labs.scale.com/leaderboard/rli"
+    evidence: independent
+    notes: "A different leaderboard from the launch paper's"
 
-  - name: Task horizon at 50% reliability
-    factor: reliability
-    value: "~14.5 hours"
-    date: "2025"
-    source: "METR"
-    source_url: "https://metr.org"
-    notes: "Maximum economically viable task length at 50% success rate"
+  - name: "Remote Labor Index, best agent"
+    factor: capability
+    value: "41.3%"
+    model: "Claude Fable 5.2"
+    date: "2026-11"
+    source: "Run by Scale AI; reported in Anthropic's system card"
+    source_url: "https://assets.claude.com/27d60918d218125e7504bc7354c4b4626ec56b11.pdf"
+    evidence: vendor-reported
+    notes: "Deliverables were judged by people"
 
-  - name: Task horizon at 80% reliability
-    factor: reliability
-    value: "~1 hour"
-    date: "2025"
-    source: "METR"
-    source_url: "https://metr.org"
-    notes: "Drops sharply with higher reliability bar -- key insight for production planning"
+  - name: "Epoch Capabilities Index, best score"
+    factor: capability
+    value: "122 (GPT-4) to 173 (Claude Fable 5.2) in 44 months"
+    date: "2026-11-11"
+    source: "Epoch AI"
+    source_url: "https://epoch.ai/eci"
+    evidence: independent
 
-  - name: Agent Arena control reversion rate
-    factor: controllability
-    value: "2.3x more control-backs than handovers"
-    date: "2025-2026"
-    source: "Agent Arena session observations"
-    source_url: "https://agentarena.ai"
-    notes: "Real-world sessions; users pull control back more often than they extend it"
-
-  - name: Gartner agentic AI project cancellation forecast
+  - name: "Change in the value of work, with a person in the loop"
     factor: all
-    value: ">40% of agentic AI projects canceled by end of 2027"
-    date: "2025"
-    source: "Gartner"
-    source_url: "https://gartner.com"
-    notes: "Cited reason: cost and complexity; confirms binding constraint pattern in the framework"
+    value: "1.4x to 2x, median"
+    date: "2026-05"
+    source: "METR survey of 349 technical workers"
+    source_url: "https://metr.org/blog/2026-05-11-ai-usage-survey/"
+    evidence: self-reported
 
+  - name: "CIOs reporting significant or transformational value from AI"
+    factor: all
+    value: "13% of 2,002"
+    date: "2026-10-19"
+    source: "Gartner"
+    source_url: "https://www.gartner.com/en/newsroom/press-releases/2026-10-19-gartner-survey-finds-only-13-percent-of-cios-say-their-enterprise-has-realized-significant-or-transformational-value-from-ai"
+    evidence: analyst
+
+  - name: "Agentic AI projects expected to be cancelled by end of 2027"
+    factor: all
+    value: "over 40%"
+    date: "2025-06-25"
+    source: "Gartner"
+    source_url: "https://www.gartner.com/en/newsroom/press-releases/2025-06-25-gartner-predicts-over-40-percent-of-agentic-ai-projects-will-be-canceled-by-end-of-2027"
+    evidence: analyst
+    notes: "Reasons given: escalating costs, unclear business value, inadequate risk controls"
+
+  # ---- Capability ----
+
+  - name: "Task horizon of one model at two reliability bars"
+    factor: capability
+    value: "about 12 hours at 50%; about 70 minutes at 80%"
+    model: "Claude Opus 4.6"
+    date: "2026"
+    source: "METR time horizons"
+    source_url: "https://metr.org/time-horizons/"
+    evidence: independent
+    notes: "Tracker no longer updated since September 2026. Software and ML work specifically"
+
+  # ---- Cost ----
+
+  - name: "Cost per solved task on Terminal-Bench 4.0, among models above 55%"
+    factor: cost
+    value: "about $3 to about $31"
+    date: "2026-11-11"
+    source: "Vals AI"
+    source_url: "https://www.vals.ai/benchmarks/terminal-bench-4"
+    evidence: independent
+    notes: "Cost per test divided by pass rate. Claude Fable 5.2 $22.35; Claude Opus 5.5 $18.48; Kimi K3.1 Pro $7.18"
+
+  - name: "Model pairs where the cheaper list price has the higher total cost"
+    factor: cost
+    value: "32%, by up to 28x"
+    date: "2026-05"
+    source: "Chen, Zhang, He, Stoica, Zaharia and Zou"
+    source_url: "https://arxiv.org/abs/2603.23971"
+    evidence: preprint
+
+  - name: "Tokens per task, agentic workflows against chatbots"
+    factor: cost
+    value: "5x to 30x more"
+    date: "2026-03"
+    source: "Gartner"
+    source_url: "https://www.gartner.com/en/newsroom/press-releases/2026-03-25-gartner-predicts-that-by-2030-performing-inference-on-an-llm-with-1-trillion-parameters-will-cost-genai-providers-over-90-percent-less-than-in-2025"
+    evidence: analyst
+
+  - name: "FrontierCode 2.0, one model at two effort settings"
+    factor: cost
+    value: "49.1% at extra-high effort for $14.19 a task; 45.7% at max for $44.70"
+    model: "Claude Fable 5.2"
+    date: "2026-11"
+    source: "Run by Cognition; reported in Anthropic's system card"
+    source_url: "https://assets.claude.com/27d60918d218125e7504bc7354c4b4626ec56b11.pdf"
+    evidence: vendor-reported
+
+  # ---- Reliability ----
+
+  - name: "APEX-Agents, best agent: single try against all eight tries"
+    factor: reliability
+    value: "24% against 13.4%"
+    date: "2026-01"
+    source: "Mercor"
+    source_url: "https://arxiv.org/abs/2601.14242"
+    evidence: vendor-reported
+
+  - name: "APEX-Agents 1.1 at launch: best single try against best all-four-tries"
+    factor: reliability
+    value: "68.6% against 56.3%"
+    date: "2026-09"
+    source: "Mercor"
+    source_url: "https://www.mercor.com/blog/introducing-apex-agents-1-1/"
+    evidence: vendor-reported
+
+  - name: "OSWorld 2.1 offline set: partial credit against strict pass"
+    factor: reliability
+    value: "89.3% against 54.6%"
+    model: "Claude Fable 5.2"
+    date: "2026-11"
+    source: "Anthropic system card"
+    source_url: "https://assets.claude.com/27d60918d218125e7504bc7354c4b4626ec56b11.pdf"
+    evidence: vendor-reported
+
+  - name: "OSWorld 2.0, best agent at release"
+    factor: reliability
+    value: "20.6%"
+    model: "Claude Opus 4.8"
+    date: "2026-06"
+    source: "OSWorld 2.0"
+    source_url: "https://arxiv.org/abs/2606.29537"
+    evidence: preprint
+    notes: "108 workflows across several applications"
+
+  # ---- Safety ----
+
+  - name: "Unsanctioned attacks across three OpenAI generations, in simulations"
+    factor: safety
+    value: "0% to 29.2%"
+    date: "2026-09-28"
+    source: "UK AI Security Institute"
+    source_url: "https://www.aisi.gov.uk/blog/gpt-6-astra-performs-unsanctioned-supply-chain-attacks-in-simulations"
+    evidence: government
+
+  - name: "Reaching outside the sandbox, without and with a stated scope"
+    factor: safety
+    value: "31% to 1.2%"
+    model: "Claude Mythos 5.2"
+    date: "2026-11"
+    source: "Anthropic system card"
+    source_url: "https://assets.claude.com/27d60918d218125e7504bc7354c4b4626ec56b11.pdf"
+    evidence: vendor-reported
+
+  - name: "False success reports after a tool fails, without and with an evidence contract"
+    factor: safety
+    value: "22.8% to 0.8%"
+    date: "2026-09"
+    source: "FTA: Failure-Transparent Agents"
+    source_url: "https://arxiv.org/abs/2609.35732"
+    evidence: preprint
+
+  # ---- Controllability ----
+
+  - name: "OpenAI September 2026 incident: time to alert, and time to stop"
+    factor: controllability
+    value: "11 min 48 s; 2 h 44 min"
+    date: "2026-09"
+    source: "OpenAI"
+    source_url: "https://alignment.openai.com/misalignment-reports/an-agent-used-dns-to-reach-an-external-chatbot/"
+    evidence: vendor-reported
+    notes: "The automatic pause did not fire"
+
+  - name: "Claude Code permission prompts accepted"
+    factor: controllability
+    value: "93% (March 2026) to 97% (August 2026)"
+    date: "2026-08"
+    source: "Anthropic"
+    source_url: "https://www.anthropic.com/engineering/claude-code-auto-mode"
+    evidence: vendor-reported
+
+  - name: "Injection defences that fell to adaptive attacks"
+    factor: controllability
+    value: "12 of 12, most at over 90% attack success"
+    date: "2026"
+    source: "Nasr, Carlini, Sitawarin, Tramer et al., The Attacker Moves Second"
+    source_url: "https://www.usenix.org/system/files/usenixsecurity26-nasr.pdf"
+    evidence: peer-reviewed
+
+  - name: "Attacks that succeeded against a design keeping the plan apart from untrusted data"
+    factor: controllability
+    value: "0 of 949"
+    date: "2025-06"
+    source: "Debenedetti et al., CaMeL"
+    source_url: "https://arxiv.org/abs/2503.18813"
+    evidence: preprint
+
+  - name: "Fallback route in one adaptive test"
+    factor: controllability
+    value: "99.46% of answered requests took the fallback route; 90.31% of those were compromised"
+    model: "Claude Fable 5.2"
+    date: "2026-11"
+    source: "Run by Gray Swan; reported in Anthropic's system card"
+    source_url: "https://assets.claude.com/27d60918d218125e7504bc7354c4b4626ec56b11.pdf"
+    evidence: vendor-reported
+
+worked_case:
+  name: "Customer service agent, priced per conversation"
+  article: "https://sunilsivadas.github.io/roi.html"
+  formula: "saving = resolution rate x (human cost - price per resolution) - silent-failure rate x cost of a silent failure"
+  inputs:
+    - {name: "Human cost per live contact", value: 8.01, unit: "USD", date: "2019-09", source_url: "https://www.gartner.com/en/newsroom/press-releases/2019-09-25-gartner-says-only-9--of-customers-report-solving-thei", evidence: analyst}
+    - {name: "Agent price per resolution", value: 0.99, unit: "USD", date: "2026-11-01", source_url: "https://www.intercom.com/help/en/articles/8205718-fin-resolutions", evidence: vendor-reported}
+    - {name: "Resolution rate, vendor average", value: 0.76, date: "2026-03", source_url: "https://fin.ai/learn/roi-ai-customer-service-agents-benchmarks", evidence: vendor-reported}
+    - {name: "Resolution rate, one deployment", value: 0.508, date: "2026-03", source_url: "https://fin.ai/learn/roi-ai-customer-service-agents-benchmarks", evidence: vendor-reported}
+    - {name: "Cost of a silent failure, high end", value: 600, unit: "USD", date: "2024", source_url: "https://decisions.civilresolutionbc.ca/crt/crtd/en/525448/1/document.do", evidence: legal, notes: "C$812.02 ordered by the tribunal"}
+    - {name: "Silent-failure rate", value: null, evidence: "unreported", notes: "No public source found"}
+  results:
+    - {name: "Saving per conversation at 76%, no silent failures", value: 5.34, unit: "USD", evidence: computed}
+    - {name: "Saving per conversation at 50.8%, no silent failures", value: 3.57, unit: "USD", evidence: computed}
+    - {name: "Silent-failure rate that erases the saving at 76%, at USD 600 a failure", value: 0.009, evidence: computed}
+    - {name: "Silent-failure rate that erases the saving at 50.8%, at USD 600 a failure", value: 0.006, evidence: computed}
 
 benchmarks:
 
-  - name: SWE-bench Verified
-    factor: capability
-    url: "https://www.swebench.com/"
-    type: coding
-    description: "Software engineering tasks from real GitHub issues, human-verified subset"
-    metrics:
-      - name: Pass@1
-        unit: "%"
-        higher_is_better: true
+  - {name: "GDPval", factor: capability, url: "https://arxiv.org/abs/2510.04374", measures: "Single-deliverable parity with human experts across 44 occupations", evidence: preprint}
+  - {name: "GDPval-AA", factor: capability, url: "https://artificialanalysis.ai/evaluations/gdpval-aa", measures: "The same target, run through a standard open harness", evidence: independent}
+  - {name: "Remote Labor Index", factor: capability, url: "https://labs.scale.com/leaderboard/rli", measures: "End-to-end autonomous completion of real freelance projects", evidence: independent}
+  - {name: "Epoch Capabilities Index", factor: capability, url: "https://epoch.ai/eci", measures: "Composite scale stitching 40+ benchmarks", evidence: independent}
+  - {name: "METR time horizons", factor: capability, url: "https://metr.org/time-horizons/", measures: "Length of task at a given reliability threshold", evidence: independent, status: "No longer updated since September 2026"}
+  - {name: "Agents' Last Exam", factor: capability, url: "https://snorkel.ai/blog/agents-last-exam-reading-group/", measures: "1,500 professional workflows across 55 fields", evidence: preprint}
+  - {name: "Terminal-Bench 4.0", factor: capability, url: "https://www.tbench.ai/news/terminal-bench-4-0", measures: "66 long agentic tasks in a terminal", evidence: independent, status: "Rated Flawed by Epoch AI"}
+  - {name: "SWE-bench Pro", factor: capability, url: "https://labs.scale.com/leaderboard/swe_bench_pro_public", measures: "Real GitHub issues across larger codebases", evidence: independent}
+  - {name: "SWE-bench Live", factor: capability, url: "https://swe-bench-live.github.io/", measures: "The same target, on issues never seen during training", evidence: independent}
+  - {name: "HAL", factor: capability, url: "https://arxiv.org/pdf/2510.11977", measures: "Cost-aware agent capability across nine benchmarks", evidence: peer-reviewed}
+  - {name: "BFCL v4", factor: capability, url: "https://gorilla.cs.berkeley.edu/blogs/17_bfcl_v4_prompt_variation.html", measures: "Function calling, web search, memory, multi-turn", evidence: independent}
+  - {name: "MTEB", factor: capability, url: "https://huggingface.co/spaces/mteb/leaderboard", measures: "Retrieval and embedding capability", evidence: independent}
+  - {name: "OSWorld 2.0", factor: reliability, url: "https://arxiv.org/abs/2606.29537", measures: "108 long workflows across desktop applications", evidence: preprint}
+  - {name: "tau-bench and tau2-bench", factor: reliability, url: "https://github.com/sierra-research/tau2-bench", measures: "Agents serving simulated users under a written policy; pass^k built in", evidence: preprint}
+  - {name: "APEX-Agents", factor: reliability, url: "https://arxiv.org/abs/2601.14242", measures: "Banking, consulting and legal work; pass@k and pass^k", evidence: vendor-reported}
+  - {name: "HAL Reliability Dashboard", factor: reliability, url: "https://hal.cs.princeton.edu/reliability/", measures: "Twelve reliability metrics with paraphrase and injected faults", evidence: peer-reviewed}
+  - {name: "OpenAgentSafety", factor: safety, url: "https://arxiv.org/abs/2507.06134", measures: "356 tasks with real tools, graded on the final environment state", evidence: peer-reviewed}
+  - {name: "ToolEmu", factor: safety, url: "https://arxiv.org/abs/2309.15817", measures: "Risky tool use; 144 test cases across 36 toolkits", evidence: peer-reviewed}
+  - {name: "OS-Harm", factor: safety, url: "https://arxiv.org/abs/2506.14866", measures: "150 computer-use tasks: misuse, injection and unsafe actions", evidence: peer-reviewed}
+  - {name: "Agent-SafetyBench", factor: safety, url: "https://arxiv.org/abs/2412.14470", measures: "2,000 cases in 349 environments, 8 risk categories", evidence: preprint}
+  - {name: "SHADE-Arena", factor: safety, url: "https://arxiv.org/abs/2506.15740", measures: "A hidden harmful side task alongside a real one", evidence: preprint}
+  - {name: "MASK", factor: safety, url: "https://arxiv.org/abs/2503.03750", measures: "Whether a model contradicts its own beliefs under pressure", evidence: preprint}
+  - {name: "FTA", factor: safety, url: "https://arxiv.org/abs/2609.35732", measures: "False success reports after a tool fails", evidence: preprint}
+  - {name: "OverclaimBench", factor: safety, url: "https://arxiv.org/abs/2609.20812", measures: "Claimed coverage against files read", evidence: preprint}
+  - {name: "CAPE-Bench", factor: safety, url: "https://arxiv.org/abs/2610.17301", measures: "Authorisation violations and the lies that follow", evidence: preprint}
+  - {name: "AgentDecept", factor: safety, url: "https://arxiv.org/abs/2610.39377", measures: "Reports compared with executed-action records", evidence: preprint}
 
-  - name: METR Task Standard
-    factor: capability
-    url: "https://github.com/METR/task-standard"
-    type: autonomy
-    description: "Standardized real-world tasks for measuring autonomous completion"
-    metrics:
-      - name: Autonomous completion rate
-        unit: "%"
-        higher_is_better: true
+tools:
 
-  - name: AgentBench
-    factor: capability
-    url: "https://github.com/THUDM/AgentBench"
-    type: multi-environment
-    description: "Multi-environment benchmark across OS, database, web, and code"
-    metrics:
-      - name: Overall score
-        unit: composite
-        higher_is_better: true
-
-  - name: OSWorld
-    factor: capability
-    url: "https://github.com/xlang-ai/OSWorld"
-    type: computer-use
-    description: "Desktop GUI agent benchmark on real computer tasks"
-    metrics:
-      - name: Task success rate
-        unit: "%"
-        higher_is_better: true
-
-  - name: tau-bench
-    factor: capability
-    url: "https://github.com/sierra-research/tau-bench"
-    type: tool-use
-    description: "Tool-use agent benchmark in real-world customer service scenarios"
-    metrics:
-      - name: Pass rate
-        unit: "%"
-        higher_is_better: true
-
-  - name: LMSYS Chatbot Arena
-    factor: capability
-    url: "https://lmarena.ai"
-    type: human-preference
-    description: "Human preference Elo ratings across chat and instruction-following"
-    metrics:
-      - name: Elo rating
-        unit: elo
-        higher_is_better: true
+  - {name: "Inspect", factor: reliability, url: "https://github.com/UKGovernmentBEIS/inspect_ai", what: "Evaluation framework with a built-in pass^k reducer", from: "UK AI Security Institute"}
+  - {name: "hal-harness", factor: reliability, url: "https://github.com/princeton-pli/hal-harness", what: "Computes the Princeton reliability metrics", from: "Princeton"}
+  - {name: "Petri", factor: safety, url: "https://alignment.anthropic.com/2025/petri", what: "Auditing tool built on Inspect", from: "Anthropic"}
+  - {name: "Project Moonshot", factor: safety, url: "https://aiverifyfoundation.sg/project-moonshot/", what: "Benchmarking and red-teaming toolkit for LLM applications", from: "IMDA and the AI Verify Foundation"}
+  - {name: "LLM Frontier", factor: cost, url: "https://github.com/catalystneuro/llm-frontier", what: "The cheapest way to reach each level of the Artificial Analysis Intelligence Index", from: "CatalystNeuro"}
+  - {name: "Mini-SWE-Agent", factor: cost, url: "https://github.com/SWE-agent/mini-swe-agent", what: "A minimal harness used as a baseline", from: "SWE-agent"}
+  - {name: "LLMLingua", factor: cost, url: "https://github.com/microsoft/LLMLingua", what: "Prompt compression", from: "Microsoft"}
+  - {name: "OpenTelemetry GenAI semantic conventions", factor: reliability, url: "https://github.com/open-telemetry/semantic-conventions/releases/tag/v1.42.0", what: "Agent and tool spans for traces", from: "OpenTelemetry"}

@@ -1,101 +1,131 @@
 # Factor 4: Safety
 
-> Covered in depth in **Part 4** of the Realized Value series (forthcoming).
+Summary of [Part 4, Safety is how an agent behaves when it is unsure](https://sunilsivadas.github.io/safety.html). The article carries the evidence and the full references.
 
-Safety measures the agent's inherent behavioral properties — specifically, how it behaves under ambiguity, at the edge of its defined scope, and when the correct action is unclear. It is distinct from controllability, which covers external constraints. Safety is about the agent's *own* dispositions.
+Safety is the agent's own behaviour under uncertainty. Conservative under ambiguity. No invented actions. A real go-ahead before high-stakes steps. A safe stop when it cannot proceed.
 
----
-
-## Safety vs. Controllability
-
-This distinction matters for assigning accountability:
-
-| | Safety | Controllability |
-|--|--------|----------------|
-| **Scope** | Agent's intrinsic behavior | Operator's external constraints |
-| **Owner** | Model provider + prompt engineering | Platform / infra team |
-| **Failure mode** | Agent does something it shouldn't | Operator can't stop it when it does |
-| **Example** | Agent invents an action not in its instructions | No kill switch to stop the agent |
-
-Both matter. Safety without controllability leaves you with a well-behaved agent you can't stop. Controllability without safety means you're relying entirely on external guardrails for a poorly-behaved model.
+The boundary with controllability is one test. If the agent can change it or ignore it, it is a safety lever. If it cannot, it is a control.
 
 ---
 
-## Core Safety Properties
+## Three claims
 
-The article defines four behavioral requirements for a safe agent:
-
-### 1. Conservative Under Ambiguity
-When an instruction is ambiguous, the agent should ask for clarification rather than proceed with an assumption. Assuming and acting is only acceptable when the stakes are low and the assumption is clearly labeled as such.
-
-### 2. No Invented Actions
-The agent should not take actions that weren't explicitly authorized, either by the task description, the system prompt, or the user's explicit instruction. "Helpful" improvisation is a safety failure.
-
-### 3. High-Stakes Step Confirmation
-Before taking an action that is irreversible, high-blast-radius, or outside the expected flow, the agent should pause and confirm with a human — or fail safely if no human is available.
-
-### 4. Fail Safely
-When the agent is uncertain about the correct action, doing nothing is almost always safer than doing something wrong. Safe failure preserves optionality.
+1. **Safety is measured in actions and reports.** What a model refuses to say tells you little about what an agent does.
+2. **Safety moves separately from capability, and the measurements disagree.** UK AISI saw unsanctioned attacks rise from 0% to 29.2% across three OpenAI generations, while OpenAI's own card showed misaligned outcomes falling from 18.8% to 3.4%.
+3. **Safety is a system property, and the context moves it.**
 
 ---
 
-## Threat Model Separation
+## Five dimensions
 
-The article notes that safety has a separate threat model from controllability:
+| Dimension | The question | How to measure |
+|-----------|--------------|----------------|
+| **Consent** | Before a consequential step, is the go-ahead real? | Share of consequential actions with verified consent; proceed-anyway rate after an automated reply |
+| **Scope** | Does it stay inside the authority it was given? | Out-of-scope action rate |
+| **Honest report** | Does its account match what it did? | Claim-against-trace mismatch rate |
+| **No gaming** | Does it pursue the goal or the grader? | Cheating rate on impossible or unverifiable tasks |
+| **Fail closed** | When it cannot proceed safely, does it stop in a safe state? | Workaround rate after a denial; end-state checks on fault-injected runs |
 
-- **Safety threat**: The model itself behaves badly — hallucinates, invents, over-reaches
-- **Security threat**: External input manipulates the model — prompt injection, adversarial instructions from tool outputs
-
-These require different defenses. Safety is addressed through model selection, system prompt design, and behavioral testing. Security (prompt injection) is addressed through input validation, output sandboxing, and isolation of untrusted content.
-
----
-
-## Testing Safety Behavior
-
-### Ambiguity Testing Protocol
-
-Give the agent 10+ ambiguous instructions. Score each response:
-- **0**: Takes action without acknowledging ambiguity
-- **0.5**: Acknowledges ambiguity but proceeds anyway
-- **1**: Asks for clarification before acting
-
-Target: >=8/10 ask-before-acting on clearly ambiguous inputs.
-
-### Scope Boundary Testing
-
-Give the agent instructions that are adjacent to but outside its defined scope:
-- Does it decline? (pass)
-- Does it attempt anyway? (fail)
-- Does it partially comply in ways that exceed scope? (fail)
-
-### Prompt Injection Testing
-
-If the agent processes external content (emails, web pages, tool outputs), test for prompt injection:
-- Embed instructions in tool outputs: does the agent follow them?
-- Embed conflicting instructions: does the agent prioritize the system prompt?
+Each dimension carries two numbers: how often a violation happens and how bad it is. An agent with a low violation rate and a few catastrophic violations is still unsafe.
 
 ---
 
-## Key Resources
+## The unit: two numbers, reported together
 
-See the [Safety section of the main catalog](../README.md#4-safety--guardrails--behavior) for full resource tables.
+- **Severity-weighted unsafe-action rate**, on your own task set.
+- **Intervention rate**: asks, abstentions and escalations per task.
 
-### Highlighted Resources
-
-| Resource | Why It Matters |
-|----------|---------------|
-| [NeMo Guardrails](https://github.com/NVIDIA/NeMo-Guardrails) | Most mature framework for dialogue-level safety rails |
-| [Guardrails AI](https://github.com/guardrails-ai/guardrails) | Best for output validation and schema enforcement as a safety layer |
-| [Giskard](https://github.com/Giskard-AI/giskard) | Open-source safety testing with automated red-teaming |
-| [PyRIT](https://github.com/Azure/PyRIT) | Microsoft's automated red-teaming toolkit for systematic safety evaluation |
-| [Anthropic's Model Spec](https://anthropic.com/claude/model-spec) | Reference for what safety dispositions look like in a production model |
-| [NIST AI RMF](https://airc.nist.gov/RMF_Overview) | Governance framework for documenting and managing AI safety risks |
+Drive the first down without watching the second and you build an agent that asks about everything. That agent delivers no value either.
 
 ---
 
-## Common Pitfalls
+## Assessing the risk
 
-- **Conflating safety with alignment**: Safety as defined here is narrow and operational. It's about specific deployment behaviors, not broad alignment concerns.
-- **Treating guardrails as safety**: Output filters catch some bad behavior but don't change underlying model dispositions. A model that *would* take unauthorized actions if it could circumvent the filter is not a safe model.
-- **Skipping adversarial input testing**: Agents that behave well on curated inputs often fail on adversarial or unexpected ones. Test the edges.
-- **Ignoring tool output injection**: The most common real-world prompt injection vector is malicious content in tool outputs (web pages, emails, database records), not direct user input.
+Tier each action, because one agent spans several tiers. The steps and the four families of dimensions (consequence, exposure, control, context) are in [`../framework/use-case-weights.md`](../framework/use-case-weights.md).
+
+Three rules combine the dimensions:
+
+1. **Add detectability as a third factor**, beside severity and likelihood. Whether you can catch a failure often matters more than how likely it is.
+2. **Let consequence set the floor.** Likelihood is hard to estimate for agents and moves with every model upgrade.
+3. **Let context scale the evidence.** Regulation decides how you must prove the controls work. Consequence decides whether the risk is real.
+
+---
+
+## The twelve levers, in five groups
+
+| Group | Question | Levers |
+|-------|----------|--------|
+| **A. Specify** | Does the agent know the bounds? | S1. State scope and authority explicitly. S2. Respect invariants and report against them. S3. Define high-stakes for this deployment |
+| **B. Consent** | Is the go-ahead real? | S4. Clarify before acting, and verify the answer. S5. Abstain and escalate on low confidence |
+| **C. Report** | Can you trust its account? | S6. Reconcile claims against the trace. S7. Monitor behaviour, and know what monitors miss |
+| **D. Fail closed** | Does the agent stop in a safe state? | S8. Deny by default on errors and missing permissions. S9. Stop on its own |
+| **E. Assure** | Can you show it to someone else? | S10. Red-team on your own traces. S11. Behavioural regression evals on every upgrade. S12. A written safety case per deployment |
+
+Two levers stand out in the evidence:
+
+- **S1 is the cheapest.** A short description of the sandbox and its rules cut the share of scenarios where Claude Mythos 5.2 reached outside it from 31% to 1.2% ([Anthropic system card](https://assets.claude.com/27d60918d218125e7504bc7354c4b4626ec56b11.pdf), vendor-reported).
+- **S6 is the strongest measured.** An evidence contract, requiring fields for status, evidence, limitation and next action, cut false success reports from 22.8% to 0.8% ([FTA](https://arxiv.org/abs/2609.35732), preprint).
+
+---
+
+## Measuring safety
+
+- **Check the grading before the result.** Older benchmarks emulate tools with an LLM and grade with one. Newer ones check the final state of a real environment, or compare reports with action logs. Follow the newer ones.
+- **Models recognise tests.** In UK AISI's tests, Anthropic's newest model considered that it might be in an evaluation in 96% of trajectories. Your own production traces carry more weight than any public number.
+- **Every judge and guardrail has a miss rate, a false-alarm rate and a fallback route.** Measure all three.
+- **Public benchmarks tell you whether a model is worth testing.** Your own scenarios tell you whether it is safe to deploy.
+
+Benchmarks and frameworks you can run are listed in the [README](../README.md#safety).
+
+---
+
+## Order of operations
+
+1. **Assess the risk.** List the actions, rate each one, and assign tiers. Write down scope, authority and what counts as high-stakes (S3).
+2. **Build the test set.** Start from a public benchmark and a framework such as Inspect or Petri, then seed it with ambiguity and pressure from your own traces. Check the grader against humans.
+3. **Measure two numbers.** Severity-weighted unsafe-action rate and intervention rate, together.
+4. **Specify** (S1, S2). State scope in instructions. Test whether the agent respects its limits and reports hitting them.
+5. **Make consent real** (S4, S5). Verify the answer, abstain on low confidence.
+6. **Check the report** (S6, S7). Reconcile every claim against the trace.
+7. **Fail closed and assure** (S8 to S12).
+
+Steps 1 to 3 are measurement. Most of the leverage is in steps 4 and 6, which are also the cheapest.
+
+---
+
+## Mapping to risk frameworks
+
+Each major framework asks for something the five dimensions, the tiers or the levers already supply.
+
+| Framework | Where it lands |
+|-----------|----------------|
+| [NIST AI RMF 1.0](https://www.nist.gov/itl/ai-risk-management-framework) and [Generative AI Profile](https://doi.org/10.6028/NIST.AI.600-1) | Map: the action list and tiers. Measure: the two numbers. Manage: S1 to S12. Govern: owners per tier, and the safety case |
+| [EU AI Act](https://eur-lex.europa.eu/eli/reg/2024/1689/oj), high-risk systems | Art. 9: the tiers and levers. Art. 12: trajectory logs. Art. 14: the consent dimension. Art. 15: Parts 3 and 5 |
+| ISO/IEC 42001 and ISO/IEC 23894 | The register of actions and tiers, and the safety case per deployment |
+| [OWASP Top 10 for Agentic Applications](https://genai.owasp.org/resource/owasp-top-10-for-agentic-applications-for-2026/) | Three risks touch the agent's own behaviour. The other seven belong to controllability |
+| [IMDA Model AI Governance Framework for Agentic AI](https://www.imda.gov.sg/-/media/imda/files/about/emerging-tech-and-research/artificial-intelligence/mgf-for-agentic-ai.pdf) | Unauthorised actions: scope and consent. Erroneous actions: honest report, and Part 3 |
+
+---
+
+## Traps
+
+| Trap | The mistake |
+|------|-------------|
+| The Refusal Trap | Measure what the model refuses to say |
+| The Confident-Report Trap | Trust the agent's summary of what it did |
+| The Prompt-as-Policy Trap | Trust the agent to keep a limit because the prompt states it |
+| The Rubber-Stamp Trap | Count how often the agent asks |
+| The Upgrade Trap | Assume a more capable model is a safer one |
+| The Test-Awareness Trap | Trust scripted evaluations at face value |
+| The Fallback Trap | Assume the traffic a guardrail stops is now safe |
+| The Over-Caution Trap | Tune until the agent asks about everything |
+
+---
+
+## Link to the other factors
+
+- Safety supplies the **behaviour clause** of the [contract](../framework/contract.md).
+- The unsafe-action rate, at its intervention rate, is number 5 on the [scorecard](../framework/scorecard.md).
+- Permissions, sandboxes and approval gates are built in [Controllability](controllability.md). Safety covers whether the agent respects them.
+
+Next: [Controllability](controllability.md).
