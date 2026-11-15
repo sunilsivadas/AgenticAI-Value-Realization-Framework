@@ -32,17 +32,17 @@ The five factors price the agent per task. The organisation around the agent dec
 
 ## The article series
 
-| Part | Title | What it gives you |
-|------|-------|-------------------|
-| [Introduction](https://sunilsivadas.github.io/realized-value.html) | Realized Value: A Framework for Evaluating Agentic AI in the Enterprise | The framework, and how the five factors multiply |
-| [Part 1](https://sunilsivadas.github.io/capability.html) | Capability is a system property | Seven layers where capability comes from, and five attributes that set the weights |
-| [Part 2](https://sunilsivadas.github.io/cost.html) | Cost engineering for agentic AI | Cost per successful task, and eighteen levers |
-| [Part 3](https://sunilsivadas.github.io/reliability.html) | Reliability is getting it right every time | pass^k, three outcomes per run, and twelve levers |
-| [Part 4](https://sunilsivadas.github.io/safety.html) | Safety is how an agent behaves when it is unsure | Five dimensions, risk tiers per action, and twelve levers |
-| [Part 5](https://sunilsivadas.github.io/controllability.html) | Controllability is what you can do when the agent is wrong | Six tests, four numbers, twelve levers, and the three-clause contract |
-| [Part 6](https://sunilsivadas.github.io/roi.html) | From framework to ROI | The cost model, a worked case, one build sequence and one scorecard |
+| Part | Title | What it gives you | Reading time | Detail |
+|------|-------|-------------------|--------------|--------|
+| [Introduction](https://sunilsivadas.github.io/realized-value.html) | Realized Value: A Framework for Evaluating Agentic AI in the Enterprise | The framework, and how the five factors multiply | ~15 min | |
+| [Part 1](https://sunilsivadas.github.io/capability.html) | Capability is a system property | Seven layers where capability comes from, and five attributes that set the weights | ~25 min | [Reference](https://sunilsivadas.github.io/capability-reference.html) |
+| [Part 2](https://sunilsivadas.github.io/cost.html) | Cost engineering for agentic AI | Cost per successful task, and eighteen levers | ~25 min | [Reference](https://sunilsivadas.github.io/cost-levers.html) |
+| [Part 3](https://sunilsivadas.github.io/reliability.html) | Reliability is getting it right every time | pass^k, three outcomes per run, and twelve levers | ~25 min | [Reference](https://sunilsivadas.github.io/reliability-reference.html) |
+| [Part 4](https://sunilsivadas.github.io/safety.html) | Safety is how an agent behaves when it is unsure | Five dimensions, risk tiers per action, and twelve levers | ~25 min | [Reference](https://sunilsivadas.github.io/safety-reference.html) |
+| [Part 5](https://sunilsivadas.github.io/controllability.html) | Controllability is what you can do when the agent is wrong | Six tests, four numbers, twelve levers, and the three-clause contract | ~25 min | [Reference](https://sunilsivadas.github.io/controllability-reference.html) |
+| [Part 6](https://sunilsivadas.github.io/roi.html) | From framework to ROI | The cost model, a worked case, one build sequence and one scorecard | ~20 min | |
 
-All seven are published. The series is a living document and is updated with each major model release. Each article carries its own change log.
+All seven are published. Parts 1 to 5 each make their argument in about 25 minutes, and a linked reference page holds the lever-by-lever detail and sources. The series is a living document and is updated with each major model release. Each article carries its own change log.
 
 ---
 

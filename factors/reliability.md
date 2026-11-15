@@ -1,6 +1,6 @@
 # Factor 3: Reliability
 
-Summary of [Part 3, Reliability is getting it right every time](https://sunilsivadas.github.io/reliability.html). The article carries the evidence and the full references.
+Summary of [Part 3, Reliability is getting it right every time](https://sunilsivadas.github.io/reliability.html). The article makes the argument in about 25 minutes. Its [reference page](https://sunilsivadas.github.io/reliability-reference.html) carries the detail and the sources.
 
 Benchmarks report pass@1. Production needs pass@always. Reliability is the second discount: does the agent finish every time, recover from mid-task errors, and fail safely when it cannot?
 

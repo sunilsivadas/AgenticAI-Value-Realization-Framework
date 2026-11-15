@@ -1,6 +1,6 @@
 # Factor 4: Safety
 
-Summary of [Part 4, Safety is how an agent behaves when it is unsure](https://sunilsivadas.github.io/safety.html). The article carries the evidence and the full references.
+Summary of [Part 4, Safety is how an agent behaves when it is unsure](https://sunilsivadas.github.io/safety.html). The article makes the argument in about 25 minutes. Its [reference page](https://sunilsivadas.github.io/safety-reference.html) carries the detail and the sources.
 
 Safety is the agent's own behaviour under uncertainty. Conservative under ambiguity. No invented actions. A real go-ahead before high-stakes steps. A safe stop when it cannot proceed.
 

@@ -1,6 +1,6 @@
 # Factor 1: Capability
 
-Summary of [Part 1, Capability is a system property](https://sunilsivadas.github.io/capability.html). The article carries the evidence and the full references.
+Summary of [Part 1, Capability is a system property](https://sunilsivadas.github.io/capability.html). The article makes the argument in about 25 minutes. Its [reference page](https://sunilsivadas.github.io/capability-reference.html) carries the detail and the sources.
 
 > The model sets the ceiling. The system decides how much of it you get. Between generational releases, the model you picked is rarely what holds you back.
 

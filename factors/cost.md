@@ -1,6 +1,6 @@
 # Factor 2: Cost
 
-Summary of [Part 2, Cost engineering for agentic AI](https://sunilsivadas.github.io/cost.html). The article carries the evidence and the full references.
+Summary of [Part 2, Cost engineering for agentic AI](https://sunilsivadas.github.io/cost.html). The article makes the argument in about 25 minutes. Its [reference page](https://sunilsivadas.github.io/cost-levers.html) carries the detail and the sources.
 
 Cost is the first discount, and the one factor with a clean unit. Its savings multiply cleanly. An agent that costs more than the labour it replaces zeros the product.
 
@@ -65,7 +65,7 @@ The savings are upper bounds for each group at the same quality. They are not gu
 
 **How the verdicts are set.** Each lever is checked against three independent types of evidence: a peer-reviewed paper, provider documentation with measured numbers, and a production case from a named team. A lever is Strong when all three are present, Adequate when one is missing or its mechanism differs from the claim, and Thin when the anchors are workshop-grade or absent. Five levers are Strong and thirteen are Adequate. None is Thin.
 
-The article names the evidence for every lever.
+The [reference page](https://sunilsivadas.github.io/cost-levers.html) names the evidence for every lever.
 
 ---
 

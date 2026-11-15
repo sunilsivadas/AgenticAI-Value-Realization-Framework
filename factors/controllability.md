@@ -1,6 +1,6 @@
 # Factor 5: Controllability
 
-Summary of [Part 5, Controllability is what you can do when the agent is wrong](https://sunilsivadas.github.io/controllability.html). The article carries the evidence and the full references.
+Summary of [Part 5, Controllability is what you can do when the agent is wrong](https://sunilsivadas.github.io/controllability.html). The article makes the argument in about 25 minutes. Its [reference page](https://sunilsivadas.github.io/controllability-reference.html) carries the detail and the sources.
 
 Controllability is the operator's leverage: permissions, sandboxing, audit trails, kill switches, blast radius, human checkpoints. Model supply belongs here too. It is the factor you set yourself.
 
