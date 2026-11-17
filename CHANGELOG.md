@@ -2,6 +2,10 @@
 
 Newest first.
 
+## 18 Nov 2026
+
+Part 6 is now v9. It adds Klarna's Q3 2026 results to its case study. The cost model and its results are unchanged, so no figure in this repository changed.
+
 ## 15 Nov 2026
 
 Full realignment with the article series as published on 15 November 2026 (introduction v18, Part 1 v28, Part 2 v17, Part 3 v8, Part 4 v6, Part 5 v5, Part 6 v8). The previous version dated from 6 June 2026, when only the introduction was out.
