@@ -11,7 +11,7 @@ Capability is the only factor that creates value. It is the potential economic v
 ## Three claims
 
 1. **Capability is a system property, and where the system adds it depends on the model tier.** For flagship models, vendor and minimal harnesses score within about two points of each other on Terminal-Bench 4.0. For mid-tier models and cross-vendor pairings, the harness moves results by about 3 to 12 points either way. Optimised harnesses add 13 points or more on a fixed model.
-2. **Frontier models cluster, break apart, and cluster again.** A new generation moves the ceiling by double digits. Between generations, what an enterprise controls is the system around the model.
+2. **Frontier models cluster, separate, and cluster again.** A new generation raises the ceiling by double digits. Between generations, what an enterprise controls is the system around the model.
 3. **Measuring capability at a production reliability threshold double-counts reliability.** Measure capability under generous conditions: best effort, ideal harness, no time pressure.
 
 ---

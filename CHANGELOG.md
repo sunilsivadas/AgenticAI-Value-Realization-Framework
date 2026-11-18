@@ -4,6 +4,8 @@ Newest first.
 
 ## 18 Nov 2026
 
+The series had a plain-language review, and every article has a new version (introduction v19, Part 1 v30, Part 2 v18, Part 3 v9, Part 4 v7, Part 5 v6, Part 6 v10). Figures of speech were reworded and no figure, claim or source changed. Here, Part 1's second claim now reads "cluster, separate, and cluster again", and the data file records the new versions.
+
 Part 6 is now v9. It adds Klarna's Q3 2026 results to its case study. The cost model and its results are unchanged, so no figure in this repository changed.
 
 ## 15 Nov 2026
