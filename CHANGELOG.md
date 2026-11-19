@@ -2,6 +2,10 @@
 
 Newest first.
 
+## 19 Nov 2026
+
+Part 5 is now v7, and its reference page v3. It adds OpenAI's draft framework for classifying AI control incidents (16 Nov 2026, written with MITRE; vendor proposal, v0.1). The four numbers, the levers and the contract clause are unchanged, so no figure in this repository changed. The data file records the new version.
+
 ## 18 Nov 2026
 
 The series had a plain-language review, and every article has a new version (introduction v19, Part 1 v30, Part 2 v18, Part 3 v9, Part 4 v7, Part 5 v6, Part 6 v10). Figures of speech were reworded and no figure, claim or source changed. Here, Part 1's second claim now reads "cluster, separate, and cluster again", and the data file records the new versions.
