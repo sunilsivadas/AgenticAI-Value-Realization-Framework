@@ -26,7 +26,7 @@ series:
     - {part: 2, title: "Cost engineering for agentic AI", url: "https://sunilsivadas.github.io/cost.html", version: "v21", reference_url: "https://sunilsivadas.github.io/cost-levers.html"}
     - {part: 3, title: "Reliability is getting it right every time", url: "https://sunilsivadas.github.io/reliability.html", version: "v13", reference_url: "https://sunilsivadas.github.io/reliability-reference.html"}
     - {part: 4, title: "Safety is how an agent behaves when it is unsure", url: "https://sunilsivadas.github.io/safety.html", version: "v10", reference_url: "https://sunilsivadas.github.io/safety-reference.html"}
-    - {part: 5, title: "Controllability is what you can do when the agent is wrong", url: "https://sunilsivadas.github.io/controllability.html", version: "v9", reference_url: "https://sunilsivadas.github.io/controllability-reference.html"}
+    - {part: 5, title: "Controllability is what you can do when the agent is wrong", url: "https://sunilsivadas.github.io/controllability.html", version: "v10", reference_url: "https://sunilsivadas.github.io/controllability-reference.html"}
     - {part: 6, title: "From framework to ROI", url: "https://sunilsivadas.github.io/roi.html", version: "v12"}
 
 units:

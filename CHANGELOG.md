@@ -4,6 +4,8 @@ Newest first.
 
 ## 24 Nov 2026
 
+Part 5 is now v10. Its argument was rewritten in the same style as Parts 1 to 4. The twelve lever summaries are unchanged. No figure, claim, quotation or source changed.
+
 Part 4 is now v10. Its argument was rewritten in the same style as Parts 1 to 3. The twelve lever summaries are unchanged. No figure, claim, quotation or source changed.
 
 Part 3 is now v13. Its argument was rewritten in the same style as Parts 1 and 2. The twelve lever summaries are unchanged. No figure, claim or source changed.
