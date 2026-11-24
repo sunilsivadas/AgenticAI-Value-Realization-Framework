@@ -2,6 +2,10 @@
 
 Newest first.
 
+## 24 Nov 2026
+
+The articles no longer show a change log on the page, so the README no longer says they do. To check a figure, read the live article.
+
 ## 19 Nov 2026
 
 Part 5 is now v7, and its reference page v3. It adds OpenAI's draft framework for classifying AI control incidents (16 Nov 2026, written with MITRE; vendor proposal, v0.1). The four numbers, the levers and the contract clause are unchanged, so no figure in this repository changed. The data file records the new version.

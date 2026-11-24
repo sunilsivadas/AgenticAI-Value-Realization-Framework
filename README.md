@@ -42,7 +42,7 @@ The five factors price the agent per task. The organisation around the agent dec
 | [Part 5](https://sunilsivadas.github.io/controllability.html) | Controllability is what you can do when the agent is wrong | Six tests, four numbers, twelve levers, and the three-clause contract | ~25 min | [Reference](https://sunilsivadas.github.io/controllability-reference.html) |
 | [Part 6](https://sunilsivadas.github.io/roi.html) | From framework to ROI | The cost model, a worked case, one build sequence and one scorecard | ~20 min | |
 
-All seven are published. Parts 1 to 5 each make their argument in about 25 minutes, and a linked reference page holds the lever-by-lever detail and sources. The series is a living document and is updated with each major model release. Each article carries its own change log.
+All seven are published. Parts 1 to 5 each make their argument in about 25 minutes, and a linked reference page holds the lever-by-lever detail and sources. The series is a living document and is updated with each major model release.
 
 ---
 
@@ -211,7 +211,7 @@ Benchmarks, tools and standards the series cites. Every link was checked on 14 N
 - Only cost aggregates cleanly. Safety and controllability resist that arithmetic.
 - The factors trade off. Cutting cost can cost capability. Tighter controls can cost latency.
 - The newest evidence is mostly vendor-run, and the newest models increasingly recognise when they are being tested. Treat lab safety numbers as a best case.
-- Figures date quickly. Check the article change logs before quoting a number from here.
+- Figures date quickly. Check the live article before quoting a number from here.
 
 ---
 
