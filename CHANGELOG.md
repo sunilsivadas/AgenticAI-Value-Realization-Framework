@@ -4,6 +4,8 @@ Newest first.
 
 ## 24 Nov 2026
 
+The data file records the current article versions: introduction v22, Part 1 v32, Part 2 v20, Part 3 v12, Part 4 v9, Part 5 v9, Part 6 v12. The introduction was rewritten in a more personal style, with no change to its figures, claims or sources. Between 19 and 24 Nov the articles also gained material on data readiness and on OpenAI's internal research-task figures. That material is not yet in this repository.
+
 The articles no longer show a change log on the page, so the README no longer says they do. To check a figure, read the live article.
 
 ## 19 Nov 2026
