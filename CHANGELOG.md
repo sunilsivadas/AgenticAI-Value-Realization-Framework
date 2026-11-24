@@ -4,6 +4,8 @@ Newest first.
 
 ## 24 Nov 2026
 
+Part 6 is now v13. It was rewritten in the same style as the introduction and Parts 1 to 5, which completes the series. The cost model, the scorecard and the ten-step sequence are unchanged. No figure, claim, quotation or source changed.
+
 Part 5 is now v10. Its argument was rewritten in the same style as Parts 1 to 4. The twelve lever summaries are unchanged. No figure, claim, quotation or source changed.
 
 Part 4 is now v10. Its argument was rewritten in the same style as Parts 1 to 3. The twelve lever summaries are unchanged. No figure, claim, quotation or source changed.
