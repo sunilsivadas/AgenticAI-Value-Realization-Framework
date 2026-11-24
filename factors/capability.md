@@ -36,6 +36,8 @@ Why no threshold: METR measured one model, Claude Opus 4.6, at a task horizon ne
 | 6. Test-time compute | Reasoning depth, best-of-n, verifier loops | Small at the top: 3 points from high to max effort on one benchmark, and a loss on another |
 | 7. Specialisation | Skills, narrow fine-tunes, distillation | Task-dependent; the same quality at a fraction of the foundation-model cost |
 
+For layer 4, the state of the data matters as much as the retrieval method. On BEAVER, a benchmark built from three private company data warehouses, the best agent answered 11.4% of questions correctly, although the same method scores 62.9% on Spider 2.0. Telling the agent which tables, join keys and columns to use raised the best method from about 9.5% to 18.9% ([BEAVER](https://arxiv.org/abs/2409.02038), preprint). The hints were written by the benchmark's authors, so they show the most that documentation could give.
+
 The figures vary widely because each layer's leverage depends on the others. Within a generation, the non-model layers move capability further than the choice between frontier models. The exception is an off-the-shelf harness at the flagship tier. Across a generation, the model moves it furthest.
 
 ---

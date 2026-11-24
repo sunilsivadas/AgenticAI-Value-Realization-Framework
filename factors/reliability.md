@@ -28,6 +28,10 @@ Report pass^k with two rates beside it, because production has three outcomes fo
 | **Handed back** | The agent stopped and said so. A person picks it up | Attention. Budget for it |
 | **Silently wrong** | The agent finished, reported success, and the result is wrong | Money. Nobody knows until it lands |
 
+Out-of-date source data is a direct cause of silent failures. The agent retrieves a passage that has been replaced and answers from it with confidence. On the HOH benchmark, outdated passages in the retrieved context caused a performance drop of at least 20%, and the authors conclude that outdated information is a greater risk than having no relevant information ([Ouyang et al.](https://aclanthology.org/2025.acl-long.301.pdf), peer-reviewed). So some silent failures are fixed in the source, and no change to the agent removes them.
+
+Real work shows success falling as tasks get longer. On research tasks that OpenAI's own researchers handed to coding agents, estimated success without human intervention in October 2026 was 46% for tasks of two to four hours and 35% for tasks of four to eight hours ([OpenAI](https://openai.com/index/research-acceleration-jagged-frontier/), vendor-reported). A model estimated the task lengths, and the tasks are the ones researchers chose to delegate.
+
 Take two agents. Agent A is correct on 80% of runs and silently wrong on 20%. Agent B is correct on 75%, hands back 20% and is silently wrong on 5%. On pass@1, A wins. In production, B is the one you can deploy.
 
 ---
@@ -81,7 +85,7 @@ Ask for these from any team, vendor or harness, measured on your own golden set 
 
 1. **Set the bar per action.** List the actions, rate consequence, exposure and detection, and write down the k and silent-failure rate each tier needs. Governance signs off the bar and names its owner.
 2. **Run the golden set k times.** Add paraphrases, faults and long sessions. Count three outcomes. Check the grader against humans, and use code where the answer is known.
-3. **Separate the failures.** Items that never pass are capability problems. Items that pass some of the time are reliability problems.
+3. **Separate the failures.** Items that never pass are capability problems. Items that pass some of the time are reliability problems. Mark each failure as caused by the agent or by the source data: out of date, duplicated or undocumented. The second kind is fixed in the source.
 4. **Design out variance** (R1 to R3).
 5. **Add verification** (R4 to R6). Code checks first, critics where code cannot reach. Measure the verifier's two error rates.
 6. **Add recovery** (R7 to R9).

@@ -4,7 +4,13 @@ Newest first.
 
 ## 24 Nov 2026
 
-The data file records the current article versions: introduction v22, Part 1 v32, Part 2 v20, Part 3 v12, Part 4 v9, Part 5 v9, Part 6 v12. The introduction was rewritten in a more personal style, with no change to its figures, claims or sources. Between 19 and 24 Nov the articles also gained material on data readiness and on OpenAI's internal research-task figures. That material is not yet in this repository.
+The data file records the current article versions: introduction v22, Part 1 v32, Part 2 v20, Part 3 v12, Part 4 v9, Part 5 v9, Part 6 v12. The introduction was rewritten in a more personal style, with no change to its figures, claims or sources. The repository now carries what the articles added between 19 and 24 Nov:
+
+- **Data readiness.** The organisation owns the data the agent works from. The README, the factor summaries for capability, reliability, safety and controllability, the cost model, the worksheet and the checklist each gain the matching line. New figures: BEAVER (best agent 11.4% on private company data warehouses, a preprint), HOH (outdated passages cause a drop of at least 20%, peer-reviewed) and a Gartner survey (63% of 1,203 data management leaders, self-reported).
+- **Research tasks inside OpenAI.** Unaided success of 46% on two-to-four-hour tasks and 35% on four-to-eight-hour tasks in October 2026 (vendor-reported).
+- **Classifying control incidents.** The controllability summary gains a short section on OpenAI's draft framework, written with MITRE (vendor proposal, draft v0.1).
+
+The scorecard's twelve numbers, the cost model's results and the contract's three clauses are unchanged.
 
 The articles no longer show a change log on the page, so the README no longer says they do. To check a figure, read the live article.
 

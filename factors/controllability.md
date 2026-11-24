@@ -63,7 +63,7 @@ A log needs an alert. Test that the logs exist and that the alerts fire.
 | **B. Bound** | What can the agent reach? | K1. Least privilege per action, with an identity per agent. K2. Sandbox, and separate the environments. K3. Put limits where the agent cannot reach them |
 | **G. Gate** | Who says yes? | K4. Gates set by action tier, placed where reversibility ends. K5. Show the blast radius, and budget the prompts. K6. Escalate to someone with authority, on a clock |
 | **H. Halt and undo** | Can you stop it and reverse it? | K7. A stop that works mid-run, drilled. K8. Make actions reversible by design |
-| **T. Trace** | Can you reconstruct it? | K9. An audit trail that ties every action to an agent and a person |
+| **T. Trace** | Can you reconstruct it? | K9. An audit trail that ties every action to an agent and a person, and records which data sources the action read |
 | **R. Resist** | Do the bounds hold under attack? | K10. Remove the capability, so there is no attack to detect. K11. Control the supply chain and the agents' channels |
 | **P. Portability** | Can you lose the model? | K12. Keep the harness portable, and prune it on every upgrade |
 
@@ -79,9 +79,21 @@ A log needs an alert. Test that the logs exist and that the alerts fire.
 
 ---
 
+## Classifying an incident
+
+OpenAI published a draft framework for grading control incidents on 16 Nov 2026, written with MITRE ([OpenAI](https://cdn.openai.com/pdf/classifying-ai-control-incidents-and-their-severity-a-draft-framework.pdf), vendor proposal, draft v0.1).
+
+- **Definition.** A control incident is an uninstructed action outside the agent's authorised scope that causes harm or weakens a control. Actions that the user or a human attacker directed are excluded, so a prompt-injection attack is outside it.
+- **Four questions.** What information did the agent reach or disclose? What did it change or impair? Could people still use the systems they rely on? Could the people responsible for oversight still monitor the agent and stop it in time?
+- **Two ratings**, each on five levels (Low, Moderate, High, Severe, Critical): one for what happened, and one for the most serious outcome that was credibly possible.
+
+The fourth question treats lost oversight as a harm of its own, which supports reporting time-to-halt. The bounds clause of the [contract](../framework/contract.md) needs an agreed definition of an incident and a record of blocked attempts and near misses. This draft is one candidate. It creates no reporting duties, and its scale is built for large harms.
+
+---
+
 ## Order of operations
 
-1. **Inventory.** List every action, every tool, and every credential behind them. Reuse Part 4's tiers.
+1. **Inventory.** List every action, every tool, and every credential behind them. List the data sources each agent can read, with an owner and the date each was last checked. Reuse Part 4's tiers.
 2. **Give each agent its own identity, and cut its privileges** (K1). Remove every permission the traces show it never uses.
 3. **Move hard limits outside the agent's reach** (K2, K3). Sandbox it, separate production, and put caps in tools it cannot edit.
 4. **Break the trifecta for untrusted input** (K10, K11). Pin and review its tools.

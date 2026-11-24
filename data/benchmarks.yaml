@@ -1,5 +1,5 @@
 # Key figures and benchmarks cited in the Realized Value article series.
-# Aligned with the series as published on 2026-11-15.
+# Aligned with the series as published on 2026-11-24.
 #
 # Every figure carries its evidence type. The series treats these differently:
 #   peer-reviewed    a paper at a recognised venue
@@ -18,7 +18,7 @@ series:
   title: "Realized Value: A Framework for Evaluating Agentic AI in the Enterprise"
   author: "Sunil Sivadas"
   url: "https://sunilsivadas.github.io/realized-value.html"
-  aligned_on: "2026-11-15"
+  aligned_on: "2026-11-24"
   formula: "realized value = capability x cost x reliability x safety x controllability"
   articles:
     - {part: 0, title: "Realized Value: A Framework for Evaluating Agentic AI in the Enterprise", url: "https://sunilsivadas.github.io/realized-value.html", version: "v22"}
@@ -111,6 +111,42 @@ figures:
     source: "Gartner"
     source_url: "https://www.gartner.com/en/newsroom/press-releases/2026-10-19-gartner-survey-finds-only-13-percent-of-cios-say-their-enterprise-has-realized-significant-or-transformational-value-from-ai"
     evidence: analyst
+
+  - name: "OpenAI's coding agents on research tasks from its own researchers, finished with no human intervention"
+    factor: reliability
+    value: "46% of two-to-four-hour tasks; 35% of four-to-eight-hour tasks"
+    date: "2026-10"
+    source: "OpenAI, Research acceleration: The jagged frontier"
+    source_url: "https://openai.com/index/research-acceleration-jagged-frontier/"
+    evidence: vendor-reported
+    notes: "In March 2026 the figures were 23% and 13%. A model estimated how long each task would take a person, and the tasks are the ones researchers chose to delegate. By kind of task: 79% for monitoring a training run, 35% for launching one, 25% for writing inference and serving code"
+
+  - name: "Best agent on questions over three private company data warehouses"
+    factor: capability
+    value: "11.4%"
+    date: "2026-05"
+    source: "BEAVER: An Enterprise Benchmark for Text-to-SQL"
+    source_url: "https://arxiv.org/abs/2409.02038"
+    evidence: preprint
+    notes: "9,128 questions over 812 tables. The same method scores 62.9% on Spider 2.0. With hints on tables, join keys and columns: 18.9%. With domain knowledge and a breakdown of the query as well: 25.9%. The hints were written by the benchmark's authors"
+
+  - name: "Performance drop caused by outdated passages in the retrieved context"
+    factor: reliability
+    value: "At least 20%"
+    date: "2025"
+    source: "Ouyang et al., HOH (ACL 2025)"
+    source_url: "https://aclanthology.org/2025.acl-long.301.pdf"
+    evidence: peer-reviewed
+    notes: "96,124 question-answer pairs. The authors conclude that outdated information is a greater risk than having no relevant information"
+
+  - name: "Data management leaders without the right data management practices for AI, or unsure"
+    factor: all
+    value: "63% of 1,203"
+    date: "2024"
+    source: "Gartner"
+    source_url: "https://www.gartner.com/en/newsroom/press-releases/2025-02-26-lack-of-ai-ready-data-puts-ai-projects-at-risk"
+    evidence: analyst
+    notes: "Self-reported survey answers; press release of 26 Feb 2025"
 
   - name: "Agentic AI projects expected to be cancelled by end of 2027"
     factor: all
@@ -307,6 +343,8 @@ benchmarks:
   - {name: "SWE-bench Live", factor: capability, url: "https://swe-bench-live.github.io/", measures: "The same target, on issues never seen during training", evidence: independent}
   - {name: "HAL", factor: capability, url: "https://arxiv.org/pdf/2510.11977", measures: "Cost-aware agent capability across nine benchmarks", evidence: peer-reviewed}
   - {name: "BFCL v4", factor: capability, url: "https://gorilla.cs.berkeley.edu/blogs/17_bfcl_v4_prompt_variation.html", measures: "Function calling, web search, memory, multi-turn", evidence: independent}
+  - {name: "BEAVER", factor: capability, url: "https://arxiv.org/abs/2409.02038", measures: "Questions over private company data warehouses with thin documentation", evidence: preprint}
+  - {name: "HOH", factor: reliability, url: "https://aclanthology.org/2025.acl-long.301.pdf", measures: "The effect of outdated passages on retrieval-based answers", evidence: peer-reviewed}
   - {name: "MTEB", factor: capability, url: "https://huggingface.co/spaces/mteb/leaderboard", measures: "Retrieval and embedding capability", evidence: independent}
   - {name: "OSWorld 2.0", factor: reliability, url: "https://arxiv.org/abs/2606.29537", measures: "108 long workflows across desktop applications", evidence: preprint}
   - {name: "tau-bench and tau2-bench", factor: reliability, url: "https://github.com/sierra-research/tau2-bench", measures: "Agents serving simulated users under a written policy; pass^k built in", evidence: preprint}

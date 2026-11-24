@@ -71,6 +71,7 @@ Without a baseline there is no return to report.
 | Grader for each check (code, state check, LLM judge, person) | |
 | If an LLM judge: true positive and true negative rates against an expert's labels | |
 | Paraphrases, injected faults and long sessions included? | |
+| Cases that fail because the source data is out of date, duplicated or undocumented (fix the source before tuning the agent) | |
 
 ---
 
@@ -162,7 +163,8 @@ Before the pilot. Beside each threshold, write what happens if it is missed: fix
 | Question | Answer |
 |----------|--------|
 | Which work is routed to the agent, and how much of it? | |
-| What changes in the work so the gates open wider? | |
+| What changes in the work so the four discounts are smaller? | |
+| Which data sources does the agent read? Who owns each, and when was it last checked? | |
 | What do people do with the time freed? How is its value counted? | |
 | Who owns each factor? | |
 | Who is accountable when the agent is wrong? | |

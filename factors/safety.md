@@ -56,14 +56,15 @@ Three rules combine the dimensions:
 | Group | Question | Levers |
 |-------|----------|--------|
 | **A. Specify** | Does the agent know the bounds? | S1. State scope and authority explicitly. S2. Respect invariants and report against them. S3. Define high-stakes for this deployment |
-| **B. Consent** | Is the go-ahead real? | S4. Clarify before acting, and verify the answer. S5. Abstain and escalate on low confidence |
+| **B. Consent** | Is the go-ahead real? | S4. Clarify before acting, and verify the answer. S5. Abstain and escalate on low confidence, including when the source is missing, conflicting or out of date |
 | **C. Report** | Can you trust its account? | S6. Reconcile claims against the trace. S7. Monitor behaviour, and know what monitors miss |
 | **D. Fail closed** | Does the agent stop in a safe state? | S8. Deny by default on errors and missing permissions. S9. Stop on its own |
 | **E. Assure** | Can you show it to someone else? | S10. Red-team on your own traces. S11. Behavioural regression evals on every upgrade. S12. A written safety case per deployment |
 
-Two levers stand out in the evidence:
+Three levers are worth singling out:
 
 - **S1 is the cheapest.** A short description of the sandbox and its rules cut the share of scenarios where Claude Mythos 5.2 reached outside it from 31% to 1.2% ([Anthropic system card](https://assets.claude.com/27d60918d218125e7504bc7354c4b4626ec56b11.pdf), vendor-reported).
+- **S5 has a test you can run yourself.** Remove a document, plant two that disagree, or plant one that has been replaced, and count how often the agent says so. This is a recommendation: the series found no benchmark that measures whether agents flag a doubtful source.
 - **S6 is the strongest measured.** An evidence contract, requiring fields for status, evidence, limitation and next action, cut false success reports from 22.8% to 0.8% ([FTA](https://arxiv.org/abs/2609.35732), preprint).
 
 ---

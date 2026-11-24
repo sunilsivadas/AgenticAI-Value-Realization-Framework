@@ -26,7 +26,7 @@ This is a mental model. Only cost has a clean unit, the dollar. The series gives
 | **Safety** | The agent's own behaviour when it is unsure | Severity-weighted unsafe-action rate, at its intervention rate | Risk and compliance |
 | **Controllability** | What the operator can do when the agent is wrong | Bounded share, bound-leak rate, time-to-halt, gate load | CISO |
 
-The five factors price the agent per task. The organisation around the agent decides how much of that becomes a return: the volume routed to the agent, the work redesigned around it, and what people do with the time freed, after fixed costs. Governance sets the bar for each factor and checks the evidence.
+The five factors price the agent per task. The organisation around the agent decides how much of that becomes a return: the volume routed to the agent, the work redesigned around it, and what people do with the time freed, after fixed costs. The organisation also owns the data the agent works from. Where that data is out of date, duplicated or undocumented, the agent fails whatever model it uses. Governance sets the bar for each factor and checks the evidence.
 
 ---
 
@@ -64,14 +64,14 @@ A short path for a first pass:
 1. Rate the use case on stakes, autonomy, reversibility, integration complexity and verifiability.
 2. Measure the factor nearest zero on your own tasks.
 3. Spend there.
-4. Check the organisation: volume, redesign, redeployment, fixed costs, and a named owner per factor.
+4. Check the organisation: volume, redesign, redeployment, fixed costs, the data the agent reads, and a named owner per factor.
 5. Re-run on every change of model, harness or tool. The binding constraint moves.
 
 ---
 
 ## Key figures in the series
 
-As published on 15 November 2026. Every figure carries its evidence type, because the series treats a vendor's number and a peer-reviewed number differently. The same figures, with dates and source links, are in [`data/benchmarks.yaml`](data/benchmarks.yaml).
+As published on 24 November 2026. Every figure carries its evidence type, because the series treats a vendor's number and a peer-reviewed number differently. The same figures, with dates and source links, are in [`data/benchmarks.yaml`](data/benchmarks.yaml).
 
 ### The gap
 
@@ -82,6 +82,9 @@ As published on 15 November 2026. Every figure carries its evidence type, becaus
 | Epoch Capabilities Index, best score | 122 (GPT-4) to 173 (Claude Fable 5.2) in 44 months | [Epoch AI](https://epoch.ai/eci) | Independent |
 | Change in the value of work, with a person in the loop | 1.4 to 2× (median, 349 technical workers) | [METR survey, May 2026](https://metr.org/blog/2026-05-11-ai-usage-survey/) | Self-reported |
 | CIOs reporting significant or transformational value from AI | 13% of 2,002 | [Gartner, Oct 2026](https://www.gartner.com/en/newsroom/press-releases/2026-10-19-gartner-survey-finds-only-13-percent-of-cios-say-their-enterprise-has-realized-significant-or-transformational-value-from-ai) | Analyst survey |
+| OpenAI's coding agents on research tasks from its own researchers, finished with no human intervention | 46% of two-to-four-hour tasks; 35% of four-to-eight-hour tasks (Oct 2026) | [OpenAI, Nov 2026](https://openai.com/index/research-acceleration-jagged-frontier/) | Vendor-reported; a model estimated the task lengths, and researchers chose the tasks |
+| Best agent on questions over three private company data warehouses | 11.4%. The same method scores 62.9% on Spider 2.0, a public benchmark | [BEAVER](https://arxiv.org/abs/2409.02038) | Preprint |
+| Data management leaders without the right data management practices for AI, or unsure | 63% of 1,203 (2024 survey) | [Gartner, Feb 2025](https://www.gartner.com/en/newsroom/press-releases/2025-02-26-lack-of-ai-ready-data-puts-ai-projects-at-risk) | Analyst survey, self-reported |
 | Agentic AI projects expected to be cancelled by end of 2027 | Over 40% | [Gartner, Jun 2025](https://www.gartner.com/en/newsroom/press-releases/2025-06-25-gartner-predicts-over-40-percent-of-agentic-ai-projects-will-be-canceled-by-end-of-2027) | Analyst forecast |
 
 ### One figure per factor
@@ -113,7 +116,7 @@ As published on 15 November 2026. Every figure carries its evidence type, becaus
 
 ## Sources by factor
 
-Benchmarks, tools and standards the series cites. Every link was checked on 14 November 2026. The articles carry the full reference lists.
+Benchmarks, tools and standards the series cites. Every link was checked on 14 November 2026. Sources added on 24 November 2026 are linked as the articles cite them. The articles carry the full reference lists.
 
 ### Capability
 
@@ -131,6 +134,9 @@ Benchmarks, tools and standards the series cites. Every link was checked on 14 N
 | [HAL](https://arxiv.org/pdf/2510.11977) | Cost-aware agent evaluation across nine benchmarks | Peer-reviewed (ICLR 2026) |
 | [BFCL v4](https://gorilla.cs.berkeley.edu/blogs/17_bfcl_v4_prompt_variation.html) | Function calling, web search, memory, multi-turn | Independent |
 | [MTEB](https://huggingface.co/spaces/mteb/leaderboard) | Retrieval and embedding capability | Independent leaderboard |
+| [BEAVER](https://arxiv.org/abs/2409.02038) | 9,128 questions over 812 tables from three private company data warehouses. Shows what undocumented data costs | Preprint |
+| [HOH](https://aclanthology.org/2025.acl-long.301.pdf) | 96,124 questions testing what outdated passages do to retrieval-based answers | Peer-reviewed (ACL 2025) |
+| [Kim, Yoon and Khoeurn](https://arxiv.org/abs/2606.31041) | An agent paired with a hand-written description of each database. Read with care: no test without the description | Preprint, by a vendor's staff |
 | [OSWorld 2.0](https://arxiv.org/abs/2606.29537) and its [repository](https://github.com/xlang-ai/OSWorld-V2) | 108 long workflows across desktop applications | Preprint |
 
 ### Cost
@@ -161,6 +167,7 @@ Benchmarks, tools and standards the series cites. Every link was checked on 14 N
 | [IMDA starter kit for testing agentic systems](https://www.imda.gov.sg/assets/603572eb-724a-46cf-ac12-14fe38e1558c.pdf) | Repeated runs, worst run, trajectory capture | Government (Singapore) |
 | [Anthropic, Demystifying evals for AI agents](https://anthropic.com/engineering/demystifying-evals-for-ai-agents) | Grader design for agents | Provider guidance |
 | [OpenTelemetry GenAI semantic conventions](https://github.com/open-telemetry/semantic-conventions/releases/tag/v1.42.0) | Agent and tool spans for traces | Open standard |
+| [OpenAI, Research acceleration: The jagged frontier](https://openai.com/index/research-acceleration-jagged-frontier/) and [The view inside OpenAI](https://openai.com/index/research-acceleration-view-inside-openai/) | Success of coding agents on real research tasks, by task length and by kind of task | Vendor-reported |
 
 ### Safety
 
@@ -193,6 +200,7 @@ Benchmarks, tools and standards the series cites. Every link was checked on 14 N
 | [Anthropic, Claude Code auto mode](https://www.anthropic.com/engineering/claude-code-auto-mode) | Permission prompts and approval rates | Vendor-reported |
 | [Breaking Claude Code with Opus 5 and auto mode](https://embracethered.com/blog/posts/2026/breaking-claude-code-opus-5-and-automode/) | An attacker who has read the defence | Independent researcher |
 | [Anthropic system card, Claude Fable 5.2 and Claude Mythos 5.2](https://assets.claude.com/27d60918d218125e7504bc7354c4b4626ec56b11.pdf) | Safeguard tests, fallback route, external red team | Vendor-reported |
+| [OpenAI, Classifying AI control incidents and their severity](https://cdn.openai.com/pdf/classifying-ai-control-incidents-and-their-severity-a-draft-framework.pdf) | A draft framework, written with MITRE: a definition of a control incident, four questions and two severity ratings | Vendor proposal, draft v0.1 |
 
 ### The business case
 
@@ -201,6 +209,7 @@ Benchmarks, tools and standards the series cites. Every link was checked on 14 N
 | [Klarna Q3 2025 investor presentation](https://www.sec.gov/Archives/edgar/data/2003292/000162828025052805/exhibit992klarnapresenta.htm) | The longest public record of a customer service agent | Company-reported |
 | [Fin resolutions](https://www.intercom.com/help/en/articles/8205718-fin-resolutions) | Price per resolution, and what counts as resolved | Published definition |
 | [Moffatt v. Air Canada, 2024 BCCRT 149](https://decisions.civilresolutionbc.ca/crt/crtd/en/525448/1/document.do) | What one wrong answer cost | Tribunal decision |
+| [Gartner, Lack of AI-ready data puts AI projects at risk](https://www.gartner.com/en/newsroom/press-releases/2025-02-26-lack-of-ai-ready-data-puts-ai-projects-at-risk) | Survey of 1,203 data management leaders on data readiness for AI | Analyst survey, self-reported |
 | [STABL, The missing quadrant](https://stablai.substack.com/p/the-missing-quadrant-in-responses) | Automation, augmentation and organisational change | Researcher analysis |
 
 ---
@@ -211,6 +220,7 @@ Benchmarks, tools and standards the series cites. Every link was checked on 14 N
 - Only cost aggregates cleanly. Safety and controllability resist that arithmetic.
 - The factors trade off. Cutting cost can cost capability. Tighter controls can cost latency.
 - The newest evidence is mostly vendor-run, and the newest models increasingly recognise when they are being tested. Treat lab safety numbers as a best case.
+- Data readiness has thin evidence. Two benchmarks show the harm from undocumented and outdated data. No study prices data preparation against the inference cost it saves, and no benchmark measures whether agents flag a doubtful source.
 - Figures date quickly. Check the live article before quoting a number from here.
 
 ---

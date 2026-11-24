@@ -44,7 +44,7 @@ return = volume × saving per case
 break-even volume = fixed monthly cost ÷ saving per case
 ```
 
-Fixed costs include integration with the systems of record, the golden set and its graders, the controls, the drills, the monitoring, and a named owner. Compute the break-even volume before the pilot.
+Fixed costs include integration with the systems of record, preparing and documenting the data the agent reads, the golden set and its graders, the controls, the drills, the monitoring, and a named owner. Compute the break-even volume before the pilot.
 
 ---
 

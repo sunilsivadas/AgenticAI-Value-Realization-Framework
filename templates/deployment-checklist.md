@@ -28,6 +28,7 @@ The first four steps decide whether to build at all, and they cost the least. On
 - [ ] Deterministic checks are used wherever the answer is known
 - [ ] Each LLM judge is checked against people, on true positive and true negative rates
 - [ ] The set includes paraphrases, injected faults and long sessions
+- [ ] Each failure is marked as caused by the agent or by the source data. Source problems are fixed in the source before the agent is tuned
 
 ### 4. Ceiling
 
@@ -76,6 +77,7 @@ The first four steps decide whether to build at all, and they cost the least. On
 - [ ] Consent is verified before high-tier actions. An automated reply does not count
 - [ ] The agent's claims are reconciled against its trace
 - [ ] The agent denies by default on errors and missing permissions
+- [ ] The agent says when its source is missing, conflicting or out of date. This is tested on your own cases
 - [ ] Each guardrail and judge has a measured miss rate and false-alarm rate
 - [ ] The behavioural suite includes pressure and ambiguity from your own traces
 - [ ] The severity-weighted unsafe-action rate is reported with the intervention rate
@@ -83,6 +85,7 @@ The first four steps decide whether to build at all, and they cost the least. On
 
 ### 9. Bounds
 
+- [ ] The inventory lists the data sources each agent can read, with an owner and the date each was last checked
 - [ ] Each agent has its own identity
 - [ ] Permissions granted match permissions used. Unused ones are removed
 - [ ] The agent runs in a sandbox, with production separated
@@ -92,7 +95,7 @@ The first four steps decide whether to build at all, and they cost the least. On
 - [ ] Each escalation goes to a named person with authority, on a clock
 - [ ] The halt works mid-run, and it has been drilled and timed
 - [ ] Checks run before the action, wherever possible
-- [ ] Every action is traced to an agent identity and an authorising person
+- [ ] Every action is traced to an agent identity and an authorising person, with the data sources it read
 - [ ] Alerts are tested, and they fire
 - [ ] The fallback route is tested with its production safeguards on
 - [ ] The harness survives a model change
