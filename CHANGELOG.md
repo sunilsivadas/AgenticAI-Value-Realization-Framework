@@ -4,6 +4,8 @@ Newest first.
 
 ## 24 Nov 2026
 
+Part 3 is now v13. Its argument was rewritten in the same style as Parts 1 and 2. The twelve lever summaries are unchanged. No figure, claim or source changed.
+
 Part 2 is now v21. Its opening, claims and closing sections were rewritten in the same style as Part 1. The eighteen lever summaries are unchanged. No figure, claim or source changed.
 
 Part 1 is now v33. It was rewritten in a more connected, personal style, like the introduction. No figure, claim or source changed, so nothing else in this repository changed.
