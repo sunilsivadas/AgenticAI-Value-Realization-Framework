@@ -4,6 +4,8 @@ Newest first.
 
 ## 24 Nov 2026
 
+Part 2 is now v21. Its opening, claims and closing sections were rewritten in the same style as Part 1. The eighteen lever summaries are unchanged. No figure, claim or source changed.
+
 Part 1 is now v33. It was rewritten in a more connected, personal style, like the introduction. No figure, claim or source changed, so nothing else in this repository changed.
 
 The data file records the current article versions: introduction v22, Part 1 v32, Part 2 v20, Part 3 v12, Part 4 v9, Part 5 v9, Part 6 v12. The introduction was rewritten in a more personal style, with no change to its figures, claims or sources. The repository now carries what the articles added between 19 and 24 Nov:
