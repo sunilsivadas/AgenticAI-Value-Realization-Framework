@@ -4,6 +4,8 @@ Newest first.
 
 ## 24 Nov 2026
 
+Part 1 is now v33. It was rewritten in a more connected, personal style, like the introduction. No figure, claim or source changed, so nothing else in this repository changed.
+
 The data file records the current article versions: introduction v22, Part 1 v32, Part 2 v20, Part 3 v12, Part 4 v9, Part 5 v9, Part 6 v12. The introduction was rewritten in a more personal style, with no change to its figures, claims or sources. The repository now carries what the articles added between 19 and 24 Nov:
 
 - **Data readiness.** The organisation owns the data the agent works from. The README, the factor summaries for capability, reliability, safety and controllability, the cost model, the worksheet and the checklist each gain the matching line. New figures: BEAVER (best agent 11.4% on private company data warehouses, a preprint), HOH (outdated passages cause a drop of at least 20%, peer-reviewed) and a Gartner survey (63% of 1,203 data management leaders, self-reported).
