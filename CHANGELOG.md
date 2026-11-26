@@ -2,6 +2,10 @@
 
 Newest first.
 
+## 26 Nov 2026
+
+The introduction is now v23 and Part 5 is v11 (its reference page v6). The introduction gains a paragraph on how people meet the agent: the hand-back, the question and the approval prompt. Part 5's second claim adds results from Anthropic's August 2026 post on how often people catch a dangerous command in an approval prompt (vendor-reported). The data file records the new versions. The scorecard, the cost model and the contract are unchanged.
+
 ## 24 Nov 2026
 
 Part 6 is now v13. It was rewritten in the same style as the introduction and Parts 1 to 5, which completes the series. The cost model, the scorecard and the ten-step sequence are unchanged. No figure, claim, quotation or source changed.
